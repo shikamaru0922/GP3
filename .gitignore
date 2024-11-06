@@ -73,3 +73,7 @@ crashlytics-build.properties
 
 # LargeFiles folder within Assets directory
 /[Aa]ssets/LargeFiles/
+
+# Ignore all .idea directories and subdirectories
+.idea/
+.idea.GP3/
