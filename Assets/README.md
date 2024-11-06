@@ -8,7 +8,7 @@
 ## 同步方式
 
 由于大型文件可能导致仓库过大，因此我们并不会直接将 `LargeFiles` 文件夹上传到 Git 仓库中。相反，我们使用 **Google Drive** 进行同步，以便团队成员可以在需要时访问这些文件。
-
+LargeFiles 网址：https://drive.google.com/drive/folders/1-3CX91OzSGUCK_h6bP_fgLyUGUt__JYA?usp=sharing
 ## 使用方法
 
 1. 请确保你已加入 Google Drive 的共享文件夹，并已同步 `LargeFiles` 文件夹。
