@@ -23,14 +23,17 @@ public class Bomb : MonoBehaviour
         // 获取爆炸范围内的物体
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
+        
         foreach (Collider nearbyObject in colliders)
         {
             Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
 
+            Debug.Log("Player detected");
             if (rb != null)
             {
                 if (rb.gameObject.CompareTag("Player"))
                 {
+                    
                     Vector3 explosionDirection = (rb.transform.position - transform.position).normalized;
                     rb.AddForce(explosionDirection.normalized * explosionForce, ForceMode.Impulse);
                 }

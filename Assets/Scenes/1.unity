@@ -160,6 +160,10 @@ MonoBehaviour:
   gravityRangeVisual: {fileID: 6059551216040625049, guid: ce2fc70040136ec4196bed0d75f6ece0, type: 3}
   planetMass: 1000
   gravityConstant: 0.8
+  minScale: 0.5
+  maxScale: 2
+  scaleIntensity: 1
+  gravityRangeMultiplier: 1
 --- !u!135 &6144898
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -627,6 +631,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: ee6535f71428504449546c25c0673573, type: 3}
       propertyPath: m_Name
       value: egipt
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ee6535f71428504449546c25c0673573, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ee6535f71428504449546c25c0673573, type: 3}
       propertyPath: m_RootOrder
@@ -1993,15 +2001,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fb680f4821f3d8749b8d53fafec2df84, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fb680f4821f3d8749b8d53fafec2df84, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fb680f4821f3d8749b8d53fafec2df84, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fb680f4821f3d8749b8d53fafec2df84, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2844,6 +2852,10 @@ MonoBehaviour:
   gravityRangeVisual: {fileID: 6059551216040625049, guid: ce2fc70040136ec4196bed0d75f6ece0, type: 3}
   planetMass: 1000
   gravityConstant: 0.8
+  minScale: 0.5
+  maxScale: 2
+  scaleIntensity: 1
+  gravityRangeMultiplier: 1
 --- !u!135 &570961241
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4100,6 +4112,10 @@ MonoBehaviour:
   gravityRangeVisual: {fileID: 6059551216040625049, guid: ce2fc70040136ec4196bed0d75f6ece0, type: 3}
   planetMass: 1000
   gravityConstant: 0.8
+  minScale: 0.5
+  maxScale: 2
+  scaleIntensity: 1
+  gravityRangeMultiplier: 1
 --- !u!135 &748106807
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4202,7 +4218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 768982013}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2025344548}
@@ -4241,7 +4257,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 90000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -4551,6 +4567,10 @@ MonoBehaviour:
   gravityRangeVisual: {fileID: 6059551216040625049, guid: ce2fc70040136ec4196bed0d75f6ece0, type: 3}
   planetMass: 1000
   gravityConstant: 0.8
+  minScale: 0.5
+  maxScale: 2
+  scaleIntensity: 1
+  gravityRangeMultiplier: 1
 --- !u!135 &836458000
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4898,11 +4918,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136cb6d3a7f5457b9b5b5269f2c8bb00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityRange: 90
+  gravityRange: 400
   gravityRangeColor: {r: 0, g: 1, b: 0, a: 0.25}
   gravityRangeVisual: {fileID: 6059551216040625049, guid: ce2fc70040136ec4196bed0d75f6ece0, type: 3}
-  planetMass: 1000
-  gravityConstant: 8
+  planetMass: 10000
+  gravityConstant: 1000
+  minScale: 0.5
+  maxScale: 10
+  scaleIntensity: 2
+  gravityRangeMultiplier: 10
 --- !u!135 &894061911
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6939,6 +6963,10 @@ MonoBehaviour:
   gravityRangeVisual: {fileID: 6059551216040625049, guid: ce2fc70040136ec4196bed0d75f6ece0, type: 3}
   planetMass: 1000
   gravityConstant: 7
+  minScale: 0.5
+  maxScale: 2
+  scaleIntensity: 1
+  gravityRangeMultiplier: 1
 --- !u!135 &1350708312
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8279,7 +8307,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750927374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.31, z: 0}
+  m_LocalPosition: {x: -601, y: 1.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 768982014}
@@ -8302,7 +8330,7 @@ MonoBehaviour:
   bombSpawnPoint: {fileID: 2025344548}
   throwForce: 10
   moveSpeed: 5
-  airControlFactor: 10
+  airControlFactor: 6
   mouseSensitivity: 2
   playerScore: 0
 --- !u!54 &1750927380
@@ -9759,6 +9787,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pine (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 465003513690971302, guid: dba1d38927d62ee449640b6d53e505b1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 465003513690996870, guid: dba1d38927d62ee449640b6d53e505b1, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -9815,6 +9847,10 @@ PrefabInstance:
     - target: {fileID: 1791697557174442821, guid: 31390fd66d2a7ad44b278cd7ec0c9b64, type: 3}
       propertyPath: m_Name
       value: egipt (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791697557174442821, guid: 31390fd66d2a7ad44b278cd7ec0c9b64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1791697557174798181, guid: 31390fd66d2a7ad44b278cd7ec0c9b64, type: 3}
       propertyPath: m_RootOrder
@@ -9873,6 +9909,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet_Model
       objectReference: {fileID: 0}
+    - target: {fileID: 6932153745703804278, guid: 11bf23e1e7240404ba1a47b856ea6701, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6932153745703804283, guid: 11bf23e1e7240404ba1a47b856ea6701, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -9926,6 +9966,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2103756114, guid: e52d83feec1e5104cad7b1da60881740, type: 3}
+      propertyPath: gravityConstant
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 8847116890863286736, guid: e52d83feec1e5104cad7b1da60881740, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -9973,6 +10017,10 @@ PrefabInstance:
     - target: {fileID: 8847116890863314416, guid: e52d83feec1e5104cad7b1da60881740, type: 3}
       propertyPath: m_Name
       value: skysphere
+      objectReference: {fileID: 0}
+    - target: {fileID: 8847116890863314416, guid: e52d83feec1e5104cad7b1da60881740, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e52d83feec1e5104cad7b1da60881740, type: 3}
