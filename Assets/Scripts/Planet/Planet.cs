@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Numerics;
+using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class Planet : MonoBehaviour
 {
@@ -8,24 +11,29 @@ public class Planet : MonoBehaviour
 
     public float planetMass = 1000f;          // 星球的质量（根据游戏调整）
     public float gravityConstant = 0.1f;      // 引力常数 G（根据游戏调整）
+    public float currentGravityConstant;
+
 
     // 新增参数
     public float minScale = 0.5f;             // 星球的最小缩放比例
     public float maxScale = 2f;               // 星球的最大缩放比例
     public float scaleIntensity = 1f;         // 缩放强度系数
     public float gravityRangeMultiplier = 1f; // 引力范围与缩放比例的乘数
-
+   
     private GameObject visualSphere;
-    private Rigidbody playerRb;
-    private Transform playerTransform;
+    protected Rigidbody playerRb;
+    protected Transform playerTransform;
     private Vector3 initialScale;
     private SphereCollider gravityCollider;
+    protected PlayerController playerController;
+
 
     void Start()
     {
+        currentGravityConstant = gravityConstant;
         // 保存星球的初始缩放
+        
         initialScale = transform.localScale;
-
         // 添加一个球形触发器作为引力范围
         gravityCollider = gameObject.AddComponent<SphereCollider>();
         gravityCollider.isTrigger = true;
@@ -36,38 +44,57 @@ public class Planet : MonoBehaviour
         {
             visualSphere = Instantiate(gravityRangeVisual, transform.position, Quaternion.identity, transform);
             visualSphere.transform.localScale = Vector3.one * gravityRange * 2f / transform.localScale.x;
+            
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            // 获取玩家的 Rigidbody 和 Transform 组件
+
+            playerController = other.GetComponent<PlayerController>();
+            playerController.gravityNum += 1;
             playerRb = other.GetComponent<Rigidbody>();
             playerTransform = other.transform;
+            
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    protected void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            other.GetComponent<PlayerController>().gravityNum -= 1;
             // 停止对玩家施加引力
             playerRb = null;
             playerTransform = null;
-
+            currentGravityConstant = gravityConstant;
             // 重置星球的缩放到初始值
             transform.localScale = initialScale;
-
             // 重置引力范围和可视化球体
             UpdateGravityRange(gravityRange);
         }
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
+        if (playerRb != null && playerTransform != null && playerController.gravityNum >=2 && playerRb.velocity.magnitude > 15)
+        {
+            playerRb.velocity = Vector3.zero;
+            
+            
+        }
+
         if (playerRb != null && playerTransform != null)
+        {
+            // 计算方向和距离
+            Vector3 direction = transform.position - playerTransform.position;
+            float distance = direction.magnitude;
+            AdjustPlanetScale(distance);
+        }
+
+        if (playerRb != null && playerTransform != null && playerController.gravityNum <2)
         {
             // 计算方向和距离
             Vector3 direction = transform.position - playerTransform.position;
@@ -79,7 +106,7 @@ public class Planet : MonoBehaviour
 
             // 计算引力大小 F = G * m1 * m2 / r^2
             float playerMass = playerRb.mass;
-            float forceMagnitude = gravityConstant * planetMass * playerMass / (distance * distance);
+            float forceMagnitude = currentGravityConstant * planetMass * playerMass / (distance * distance);
 
             // 计算引力方向
             Vector3 force = direction.normalized * forceMagnitude;
@@ -87,8 +114,7 @@ public class Planet : MonoBehaviour
             // 将力施加到玩家身上
             playerRb.AddForce(force);
 
-            // 根据距离调整星球的缩放
-            AdjustPlanetScale(distance);
+            
         }
     }
 

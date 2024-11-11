@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 startPosition;         // 初始位置
 
+    public int gravityNum;
     public int playerScore;
 
     void Start()
