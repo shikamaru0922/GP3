@@ -71,9 +71,9 @@ public class Planet : MonoBehaviour
             playerTransform = null;
             currentGravityConstant = gravityConstant;
             // 重置星球的缩放到初始值
-            transform.localScale = initialScale;
+            //transform.localScale = initialScale;
             // 重置引力范围和可视化球体
-            UpdateGravityRange(gravityRange);
+            //UpdateGravityRange(gravityRange);
         }
     }
 
@@ -131,9 +131,12 @@ public class Planet : MonoBehaviour
         // 应用新的缩放
         transform.localScale = initialScale * scaleMultiplier;
 
-        // 更新引力范围和可视化球体
-        float newGravityRange = gravityRange * scaleMultiplier * gravityRangeMultiplier;
-        UpdateGravityRange(newGravityRange);
+        // Update visualSphere scale to match the adjusted gravity range
+        float visualSphereScale = gravityRange * 2f / transform.localScale.x;
+        if (visualSphere != null)
+        {
+            visualSphere.transform.localScale = Vector3.one * visualSphereScale;
+        }
     }
 
     void UpdateGravityRange(float newRange)
