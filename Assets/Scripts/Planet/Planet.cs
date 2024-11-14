@@ -54,6 +54,7 @@ public class Planet : MonoBehaviour
         {
 
             playerController = other.GetComponent<PlayerController>();
+           
             playerController.gravityNum += 1;
             playerRb = other.GetComponent<Rigidbody>();
             playerTransform = other.transform;
@@ -70,6 +71,7 @@ public class Planet : MonoBehaviour
             playerRb = null;
             playerTransform = null;
             currentGravityConstant = gravityConstant;
+            
             // 重置星球的缩放到初始值
             //transform.localScale = initialScale;
             // 重置引力范围和可视化球体
@@ -81,7 +83,7 @@ public class Planet : MonoBehaviour
     {
         if (playerRb != null && playerTransform != null && playerController.gravityNum >=2 && playerRb.velocity.magnitude > 15)
         {
-            playerRb.velocity = Vector3.zero;
+            playerRb.velocity = playerRb.velocity.normalized* 5;
             
             
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 
@@ -8,15 +9,15 @@ using UnityEngine;
         private float currentGravityConstant;
         public float waitTime = 0.5f;
         public Planet planet;
+        public PlayerController playerController;
 
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                
-                Debug.Log(other.GetComponent<Rigidbody>().velocity);
-                
+                playerController = other.GetComponent<PlayerController>();
+                playerController.standtargetAngel = gameObject.transform.position;
                 // Start coroutine to change gravity after a delay
                 if (gravityChangeCoroutine != null)
                 {
@@ -25,6 +26,11 @@ using UnityEngine;
                 gravityChangeCoroutine = StartCoroutine(ChangeGravityAfterDelay());
                 
             }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            playerController.standtargetAngel = Vector3.zero;
         }
 
         private Coroutine gravityChangeCoroutine;

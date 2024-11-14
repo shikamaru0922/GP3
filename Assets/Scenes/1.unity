@@ -1872,10 +1872,15 @@ MonoBehaviour:
   bombSpawnPoint: {fileID: 0}
   throwForce: 15
   moveSpeed: 5
-  airControlFactor: 0.5
   mouseSensitivity: 2
   gravityNum: 0
   playerScore: 0
+  probeLength: 1
+  probeColor: {r: 0, g: 1, b: 0, a: 1}
+  startPoint: {x: 0, y: 0, z: 0}
+  endPoint: {x: 0, y: 0, z: 0}
+  standtargetAngel: {x: 0, y: 0, z: 0}
+  rotationSpeed: 1
 --- !u!64 &264604059
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5185,7 +5190,7 @@ Transform:
   m_GameObject: {fileID: 768982013}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.21}
+  m_LocalPosition: {x: 0, y: 0.42, z: 0.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9620,6 +9625,7 @@ MonoBehaviour:
   newGravityConstant: 10
   waitTime: 1
   planet: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!135 &1605227062
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10310,9 +10316,9 @@ GameObject:
   - component: {fileID: 1750927378}
   - component: {fileID: 1750927377}
   - component: {fileID: 1750927376}
-  - component: {fileID: 1750927375}
   - component: {fileID: 1750927379}
   - component: {fileID: 1750927380}
+  - component: {fileID: 1750927381}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -10320,27 +10326,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &1750927375
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1750927374}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1750927376
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10390,7 +10375,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750927374}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1750927378
 Transform:
   m_ObjectHideFlags: 0
@@ -10400,7 +10385,7 @@ Transform:
   m_GameObject: {fileID: 1750927374}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 86, y: 85, z: -82}
+  m_LocalPosition: {x: 86, y: 84.69, z: -82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10422,11 +10407,16 @@ MonoBehaviour:
   bombPrefab: {fileID: 6547454376981304141, guid: cc5501c7f1b6fa44f86123cce0156c6f, type: 3}
   bombSpawnPoint: {fileID: 2025344548}
   throwForce: 10
-  moveSpeed: 5
-  airControlFactor: 6
+  moveSpeed: 10
   mouseSensitivity: 2
   gravityNum: 0
   playerScore: 0
+  probeLength: 1.43
+  probeColor: {r: 0, g: 1, b: 0, a: 1}
+  startPoint: {x: 0, y: 0, z: 0}
+  endPoint: {x: 0, y: 0, z: 0}
+  standtargetAngel: {x: 0, y: 0, z: 0}
+  rotationSpeed: 90
 --- !u!54 &1750927380
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10454,6 +10444,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!136 &1750927381
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750927374}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1752717288
 GameObject:
   m_ObjectHideFlags: 0
