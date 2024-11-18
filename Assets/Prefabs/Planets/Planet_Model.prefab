@@ -143,6 +143,7 @@ MonoBehaviour:
   newGravityConstant: 10
   waitTime: 0.5
   planet: {fileID: 6932153745703804279}
+  playerController: {fileID: 0}
 --- !u!1 &6932153745703804278
 GameObject:
   m_ObjectHideFlags: 0

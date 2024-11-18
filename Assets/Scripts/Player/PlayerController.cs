@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -28,8 +29,13 @@ public class PlayerController : MonoBehaviour
 
     [Header("Rotation Settings")]
     public float rotationSpeed = 1f;  // 旋转速度（度/秒）
-
     private bool isRotating = false;  // 标记旋转是否正在进行
+    
+      
+    // New variables for raycasting interaction
+    [Header("Interaction Settings")]
+    public float interactionRange = 5f;                    // Maximum interaction distance
+    private List<GameObject> interactedItems = new List<GameObject>(); // List of interacted items
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -49,6 +55,7 @@ public class PlayerController : MonoBehaviour
         HandleBombThrow();
         HandleBombDetonate();
         HandleResetPosition();
+        HandleInteraction(); 
     }
 
     void FixedUpdate()
@@ -211,5 +218,32 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
             isGrounded = false;
+    }
+    
+    void HandleInteraction()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            // Define the ray originating from the camera
+            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+            RaycastHit hit;
+
+            // Perform the raycast
+            if (Physics.Raycast(ray, out hit, interactionRange))
+            {
+                // Check if the hit object has the Interactable tag
+                if (hit.collider.CompareTag("Interactable"))
+                {
+                    // Add the item to the interacted items list
+                    interactedItems.Add(hit.collider.gameObject);
+
+                    // Destroy the interactable object
+                    Destroy(hit.collider.gameObject);
+
+                    // Optional: Provide feedback to the player
+                    Debug.Log("Interacted with: " + hit.collider.gameObject.name);
+                }
+            }
+        }
     }
 }

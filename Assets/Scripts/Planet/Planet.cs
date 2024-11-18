@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
@@ -26,6 +27,7 @@ public class Planet : MonoBehaviour
     private Vector3 initialScale;
     private SphereCollider gravityCollider;
     protected PlayerController playerController;
+  
 
 
     void Start()
@@ -47,6 +49,8 @@ public class Planet : MonoBehaviour
             
         }
     }
+    
+    
 
     protected void OnTriggerEnter(Collider other)
     {
@@ -120,6 +124,7 @@ public class Planet : MonoBehaviour
         }
     }
 
+    
     void AdjustPlanetScale(float distance)
     {
         // 计算距离比例（0 到 1），越近比例越大
@@ -159,4 +164,7 @@ public class Planet : MonoBehaviour
         Gizmos.color = gravityRangeColor;
         Gizmos.DrawWireSphere(transform.position, gravityRange);
     }
+    
+   
+
 }
