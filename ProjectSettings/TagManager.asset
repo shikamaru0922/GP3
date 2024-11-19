@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Interactable
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -13,11 +14,11 @@ TagManager:
   - 
   - Water
   - UI
+  - Planet
   - 
   - 
   - 
-  - 
-  - 
+  - UI
   - 
   - 
   - 
@@ -42,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: TimerUI
+    uniqueID: 1646055337
     locked: 0
