@@ -10,7 +10,7 @@ public class MeteoriteSpawner : MonoBehaviour
     public float speed = 5f;
     private Transform playerTransform;
     private float timer = 0f;
-
+    public PlayerController player;
     void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -29,6 +29,8 @@ public class MeteoriteSpawner : MonoBehaviour
 
     void SpawnMeteorite()
     {
+        if (player.gravityNum ==1)
+            return;
         // 随机生成一个方向
         Vector3 randomDirection = Random.onUnitSphere;
         randomDirection.y = Mathf.Abs(randomDirection.y); // 确保陨石从上方生成

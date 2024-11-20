@@ -20,7 +20,9 @@ public class Planet : MonoBehaviour
     public float maxScale = 2f;               // 星球的最大缩放比例
     public float scaleIntensity = 1f;         // 缩放强度系数
     public float gravityRangeMultiplier = 1f; // 引力范围与缩放比例的乘数
-   
+
+    public float speedScale;
+    
     private GameObject visualSphere;
     protected Rigidbody playerRb;
     protected Transform playerTransform;
@@ -89,9 +91,9 @@ public class Planet : MonoBehaviour
     {
         if (playerRb != null && playerTransform != null && playerController.gravityNum >=2 && playerRb.velocity.magnitude > 15)
         {
-            playerRb.velocity = playerRb.velocity.normalized* 5;
-            
-            
+            playerRb.velocity = playerRb.velocity.normalized * speedScale;
+
+
         }
 
         if (playerRb != null && playerTransform != null)
