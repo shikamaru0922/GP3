@@ -27,6 +27,8 @@ public class Planet : MonoBehaviour
     private Vector3 initialScale;
     private SphereCollider gravityCollider;
     protected PlayerController playerController;
+
+    public GameObject planetSphere;
   
 
 
@@ -35,7 +37,7 @@ public class Planet : MonoBehaviour
         currentGravityConstant = gravityConstant;
         // 保存星球的初始缩放
         
-        initialScale = transform.localScale;
+        initialScale = planetSphere.transform.localScale;
         // 添加一个球形触发器作为引力范围
         gravityCollider = gameObject.AddComponent<SphereCollider>();
         gravityCollider.isTrigger = true;
@@ -136,14 +138,14 @@ public class Planet : MonoBehaviour
         scaleMultiplier = Mathf.Clamp(scaleMultiplier, minScale, maxScale);
 
         // 应用新的缩放
-        transform.localScale = initialScale * scaleMultiplier;
-
+        //transform.localScale = initialScale * scaleMultiplier;
+        planetSphere.transform.localScale = initialScale * scaleMultiplier;
         // Update visualSphere scale to match the adjusted gravity range
-        float visualSphereScale = gravityRange * 2f / transform.localScale.x;
+        /*float visualSphereScale = gravityRange * 2f / transform.localScale.x;
         if (visualSphere != null)
         {
             visualSphere.transform.localScale = Vector3.one * visualSphereScale;
-        }
+        }*/
     }
 
     void UpdateGravityRange(float newRange)
