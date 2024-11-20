@@ -20,13 +20,17 @@ public class Planet : MonoBehaviour
     public float maxScale = 2f;               // 星球的最大缩放比例
     public float scaleIntensity = 1f;         // 缩放强度系数
     public float gravityRangeMultiplier = 1f; // 引力范围与缩放比例的乘数
-   
+
+    public float speedScale;
+    
     private GameObject visualSphere;
     protected Rigidbody playerRb;
     protected Transform playerTransform;
     private Vector3 initialScale;
     private SphereCollider gravityCollider;
     protected PlayerController playerController;
+
+    public GameObject planetSphere;
   
 
 
@@ -35,7 +39,7 @@ public class Planet : MonoBehaviour
         currentGravityConstant = gravityConstant;
         // 保存星球的初始缩放
         
-        initialScale = transform.localScale;
+        initialScale = planetSphere.transform.localScale;
         // 添加一个球形触发器作为引力范围
         gravityCollider = gameObject.AddComponent<SphereCollider>();
         gravityCollider.isTrigger = true;
@@ -87,9 +91,9 @@ public class Planet : MonoBehaviour
     {
         if (playerRb != null && playerTransform != null && playerController.gravityNum >=2 && playerRb.velocity.magnitude > 15)
         {
-            playerRb.velocity = playerRb.velocity.normalized* 5;
-            
-            
+            playerRb.velocity = playerRb.velocity.normalized * speedScale;
+
+
         }
 
         if (playerRb != null && playerTransform != null)
@@ -136,14 +140,14 @@ public class Planet : MonoBehaviour
         scaleMultiplier = Mathf.Clamp(scaleMultiplier, minScale, maxScale);
 
         // 应用新的缩放
-        transform.localScale = initialScale * scaleMultiplier;
-
+        //transform.localScale = initialScale * scaleMultiplier;
+        planetSphere.transform.localScale = initialScale * scaleMultiplier;
         // Update visualSphere scale to match the adjusted gravity range
-        float visualSphereScale = gravityRange * 2f / transform.localScale.x;
+        /*float visualSphereScale = gravityRange * 2f / transform.localScale.x;
         if (visualSphere != null)
         {
             visualSphere.transform.localScale = Vector3.one * visualSphereScale;
-        }
+        }*/
     }
 
     void UpdateGravityRange(float newRange)
