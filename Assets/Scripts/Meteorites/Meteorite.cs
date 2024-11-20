@@ -9,6 +9,8 @@ public class Meteorite : MonoBehaviour
     private Transform playerTransform;
     public bool playerAttached = false; // 是否有玩家附着在陨石上
     public GameObject playerObject = null; // 玩家对象的引用
+
+    public float rotationSpeed = 5f;
     void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -16,6 +18,9 @@ public class Meteorite : MonoBehaviour
         // 朝向玩家的方向
         Vector3 direction = (playerTransform.position - transform.position).normalized;
         transform.forward = direction;
+        if (playerAttached)
+            Debug.Log("111");
+            //
 
         // 销毁陨石
         Destroy(gameObject, lifeTime);
@@ -23,14 +28,21 @@ public class Meteorite : MonoBehaviour
 
     void Update()
     {
-        // 陨石向前移动
-        transform.position += transform.forward * speed * Time.deltaTime;
+        // 如果玩家不存在，返回
+        if (playerTransform == null)
+            return;
 
-        /*// 玩家脱离陨石（可选）
-        if (playerAttached && Input.GetKeyDown(KeyCode.Space))
-        {
-            DetachPlayer();
-        }*/
+        // 计算方向向量
+        Vector3 direction = playerTransform.position - transform.position;
+
+        // 计算目标旋转
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+        // 设置物体的旋转，使其朝向玩家
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+        // 向前移动
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,7 +59,7 @@ public class Meteorite : MonoBehaviour
         playerObject = player; 
         player.transform.SetParent(transform);
         playerAttached = true;
-
+        rotationSpeed = 0f;//metrorite 停止旋转
         // 禁用玩家控制
         /*PlayerController playerController = player.GetComponent<PlayerController>();
         if (playerController != null)

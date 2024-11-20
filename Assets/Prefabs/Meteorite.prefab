@@ -123,6 +123,8 @@ MonoBehaviour:
   lifeTime: 20
   explosionEffect: {fileID: 0}
   playerAttached: 0
+  playerObject: {fileID: 0}
+  rotationSpeed: 180
 --- !u!135 &8864379572402289314
 SphereCollider:
   m_ObjectHideFlags: 0

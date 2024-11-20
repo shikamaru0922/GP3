@@ -42,7 +42,7 @@ public class MeteoriteSpawner : MonoBehaviour
         GameObject meteorite = Instantiate(meteoritePrefab, spawnPosition, Quaternion.identity);
 
         // 随机调整陨石的大小
-        float scale = Random.Range(0.5f, 2f);
+        float scale = Random.Range(min_spawnScale, max_spawnScale);
         meteorite.transform.localScale = Vector3.one * scale;
 
         // 调整陨石的速度
