@@ -392,7 +392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &509106039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,8 +406,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meteoritePrefab: {fileID: 3255695031175358060, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
-  spawnInterval: 5
-  spawnDistance: 50
+  spawnInterval: 3
+  spawnDistance: 10
+  min_spawnScale: 5
+  max_spawnScale: 5
+  speed: 1
 --- !u!4 &509106040
 Transform:
   m_ObjectHideFlags: 0
@@ -423,32 +426,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &649724136 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3255695031175358060, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
-  m_PrefabInstance: {fileID: 9161223374262615115}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &649724142
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 649724136}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &768982013
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,7 +834,7 @@ Transform:
   m_GameObject: {fileID: 1750927374}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 86, y: 68, z: -82}
+  m_LocalPosition: {x: 86, y: 68, z: -93.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1350,21 +1327,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2494108177939974286, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
+      propertyPath: speed
+      value: 0.001
+      objectReference: {fileID: 0}
     - target: {fileID: 3255695031175358060, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
       propertyPath: m_Name
       value: Meteorite
       objectReference: {fileID: 0}
     - target: {fileID: 4671206363740997317, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 278.92856
+      value: 86
       objectReference: {fileID: 0}
     - target: {fileID: 4671206363740997317, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 73.13
+      value: 68
       objectReference: {fileID: 0}
     - target: {fileID: 4671206363740997317, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -40.3
+      value: -82
       objectReference: {fileID: 0}
     - target: {fileID: 4671206363740997317, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1394,17 +1375,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7319884617858681491, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3255695031175358060, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 649724142}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
