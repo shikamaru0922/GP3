@@ -9,42 +9,81 @@ public class Bomb : MonoBehaviour
     public AudioClip explosionSound;          // 爆炸音效
 
     private bool hasExploded = false;
-
+    private bool explodedInMeteorite;
     public void Detonate()
+{
+    if (hasExploded) return;
+
+    // 显示爆炸特效
+    if (explosionEffect != null)
     {
-        if (hasExploded) return;
-
-        // 显示爆炸特效
         Instantiate(explosionEffect, transform.position, Quaternion.identity);
+    }
 
-        // 播放爆炸音效
+    // 播放爆炸音效
+    if (explosionSound != null)
+    {
         AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+    }
 
-        // 获取爆炸范围内的物体
-        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+    // 获取爆炸范围内的所有碰撞体
+    Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
-        
-        foreach (Collider nearbyObject in colliders)
+    bool anyMeteoriteWithPlayerAttached = false; // 是否有陨石附着了玩家
+    GameObject playerObject = null; // 玩家对象
+
+    // 首先处理陨石
+    foreach (Collider nearbyObject in colliders)
+    {
+        if (nearbyObject.gameObject.CompareTag("Meteorite"))
         {
-            Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
-
-            Debug.Log("Player detected");
-            if (rb != null)
+            Meteorite meteorite = nearbyObject.GetComponent<Meteorite>();
+            if (meteorite != null)
             {
-                if (rb.gameObject.CompareTag("Player"))
+                if (meteorite.playerAttached)
                 {
-                    
-                    Vector3 explosionDirection = (rb.transform.position - transform.position).normalized;
-                    rb.AddForce(explosionDirection.normalized * explosionForce, ForceMode.Impulse);
+                    anyMeteoriteWithPlayerAttached = true;
+                    playerObject = meteorite.playerObject; // 从陨石中获取玩家对象
                 }
-                else
-                {
-                    rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
-                }
+
+                meteorite.DestroyMeteorite();
             }
         }
-
-        hasExploded = true;
-        Destroy(gameObject); // 销毁炸弹
+        else if (nearbyObject.gameObject.CompareTag("Player"))
+        {
+            // 如果 playerObject 还未被设置，则设置为当前的玩家对象
+            if (playerObject == null)
+            {
+                playerObject = nearbyObject.gameObject;
+            }
+        }
     }
+
+    // 如果玩家在爆炸范围内
+    if (playerObject != null)
+    {
+        Rigidbody rb = playerObject.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            // 计算从炸弹到玩家的方向
+            Vector3 explosionDirection = (playerObject.transform.position - transform.position).normalized;
+
+            // 如果有陨石附着了玩家，可以记录日志或执行其他逻辑
+            if (anyMeteoriteWithPlayerAttached)
+            {
+                return;
+                Debug.Log("Player was attached to a meteorite that was destroyed.");
+            }
+            // 施加爆炸力
+            rb.AddForce(explosionDirection * explosionForce, ForceMode.Impulse);
+
+  
+        }
+    }
+
+    hasExploded = true;
+    Destroy(gameObject); // 销毁炸弹
+}
+
+
 }
