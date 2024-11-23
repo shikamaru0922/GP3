@@ -401,11 +401,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meteoritePrefab: {fileID: 3255695031175358060, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
-  spawnInterval: 5
-  spawnDistance: 30
-  min_spawnScale: 5
-  max_spawnScale: 10
-  speed: 5
+  spawnInterval: 3
+  spawnDistance: 100
+  min_spawnScale: 2
+  max_spawnScale: 12
+  speed: 20
   player: {fileID: 1750927379}
 --- !u!4 &509106040
 Transform:
@@ -844,7 +844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ded69ef567c254c8fb897dbac18303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombPrefab: {fileID: 6547454376981304141, guid: cc5501c7f1b6fa44f86123cce0156c6f, type: 3}
+  bombPrefab: {fileID: 7592825793143227141, guid: 3d1e7d82fb32b2f4ca2d66cd8feab936, type: 3}
   bombSpawnPoint: {fileID: 2025344548}
   throwForce: 10
   moveSpeed: 10
