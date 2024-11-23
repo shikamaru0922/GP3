@@ -736,7 +736,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1702692883
 Transform:
   m_ObjectHideFlags: 0
@@ -854,7 +854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ded69ef567c254c8fb897dbac18303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombPrefab: {fileID: 6547454376981304141, guid: cc5501c7f1b6fa44f86123cce0156c6f, type: 3}
+  bombPrefab: {fileID: 7592825793143227141, guid: 3d1e7d82fb32b2f4ca2d66cd8feab936, type: 3}
   bombSpawnPoint: {fileID: 2025344548}
   throwForce: 10
   moveSpeed: 10
@@ -1065,7 +1065,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 650583474574734608, guid: a7956d274215fa24ba1cf5279e5070e0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 650583474574734621, guid: a7956d274215fa24ba1cf5279e5070e0, type: 3}
       propertyPath: m_LocalPosition.x
