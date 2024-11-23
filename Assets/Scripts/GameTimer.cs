@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameTimer : MonoBehaviour
 {
     public float totalTime = 60f; // 总时间（秒）
-    private float remainingTime;
+    public float remainingTime;   // 剩余时间（改为 public）
 
     public Text timerText; // 显示计时器的 UI 文本
 
@@ -37,15 +37,13 @@ public class GameTimer : MonoBehaviour
                 isGameOver = true;
                 GameOver();
             }
-            
         }
-        // 添加以下代码，检测玩家是否按下 R 键
+        // 检测玩家是否按下 R 键
         if (Input.GetKeyDown(KeyCode.R))
         {
             RestartGame();
         }
     }
-    
 
     void UpdateTimerUI()
     {

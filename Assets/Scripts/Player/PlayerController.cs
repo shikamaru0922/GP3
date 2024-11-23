@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public Transform bombSpawnPoint;       // 炸弹生成位置
     public float throwForce = 15f;         // 投掷力度
     public float moveSpeed = 5f;           // 移动速度
+    public float maxspeed_inSpace = 30;
     public float mouseSensitivity = 2f;    // 鼠标灵敏度
 
     private Rigidbody rb;
@@ -22,15 +23,22 @@ public class PlayerController : MonoBehaviour
     public float probeLength = 1.0f; // 探针的长度，可在Inspector中调节
     public Color probeColor = Color.green; // 探针的颜色
     
-    [Header("Points")]
-    public Vector3 startPoint;        // 起点（通常为当前 GameObject 的位置）
-    public Vector3 endPoint;          // 初始方向的终点
+    private Vector3 startPoint;        // 起点（通常为当前 GameObject 的位置）
+    private Vector3 endPoint;          // 初始方向的终点
     public Vector3 standtargetAngel;  // 目标方向的终点
 
     [Header("Rotation Settings")]
     public float rotationSpeed = 1f;  // 旋转速度（度/秒）
     private bool isRotating = false;  // 标记旋转是否正在进行
     
+    [Header("Bomb Settings")]
+    public int maxBombsBeforeCooldown = 2;    // 扔几次炸弹后进入冷却
+    public float bombCooldownDuration = 5f;   // 冷却持续时间，可在 Inspector 中调整
+
+    private int bombsThrown = 0;              // 已投掷的炸弹次数
+    private float bombCooldownTimer = 0f;     // 冷却计时器
+    private bool isBombCooldown = false;      // 是否处于冷却状态
+
       
     // New variables for raycasting interaction
     [Header("Interaction Settings")]
@@ -56,12 +64,26 @@ public class PlayerController : MonoBehaviour
         HandleBombDetonate();
         HandleResetPosition();
         HandleInteraction(); 
+        // 处理炸弹冷却计时器
+        if (isBombCooldown)
+        {
+            bombCooldownTimer += Time.deltaTime;
+            if (bombCooldownTimer >= bombCooldownDuration)
+            {
+                // 冷却结束，重置计数和状态
+                bombsThrown = 0;
+                isBombCooldown = false;
+                bombCooldownTimer = 0f;
+                Debug.Log("炸弹冷却结束，可以再次投掷炸弹。");
+            }
+        }
     }
 
     void FixedUpdate()
     {
         MovePlayer();
         AnimateAngle();
+        MaxSpeedCheck();
     }
 
     public void AnimateAngle()
@@ -127,9 +149,19 @@ public class PlayerController : MonoBehaviour
         // 在探针的末端绘制一个小球作为终点标记
         Gizmos.DrawSphere(endPoint, 0.05f); // 小球的半径可以调节
     }
-       
 
-    
+
+    public void MaxSpeedCheck()
+    {
+        if (gravityNum == 0)
+        {
+            if (rb.velocity.magnitude > maxspeed_inSpace)
+            rb.velocity = rb.velocity.normalized * maxspeed_inSpace;
+            Debug.Log(rb.velocity.magnitude);
+        }
+        
+        
+    }
 
     void LookAround()
     {
@@ -177,17 +209,34 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GameObject bomb = Instantiate(bombPrefab, bombSpawnPoint.position, Quaternion.identity);
-            Rigidbody bombRb = bomb.GetComponent<Rigidbody>();
+            if (!isBombCooldown && bombsThrown < maxBombsBeforeCooldown)
+            {
+                GameObject bomb = Instantiate(bombPrefab, bombSpawnPoint.position, Quaternion.identity);
+                Rigidbody bombRb = bomb.GetComponent<Rigidbody>();
 
-            bombRb.velocity = rb.velocity;
+                bombRb.velocity = rb.velocity;
 
-            Vector3 throwDirection = Camera.main.transform.forward;
-            bombRb.AddForce(throwDirection.normalized * throwForce, ForceMode.VelocityChange);
+                Vector3 throwDirection = Camera.main.transform.forward;
+                bombRb.AddForce(throwDirection.normalized * throwForce, ForceMode.VelocityChange);
 
-            currentBomb = bomb.GetComponent<Bomb>();
+                currentBomb = bomb.GetComponent<Bomb>();
+
+                bombsThrown++;
+
+                if (bombsThrown >= maxBombsBeforeCooldown)
+                {
+                    isBombCooldown = true;
+                    bombCooldownTimer = 0f;
+                }
+            }
+            else
+            {
+                // 可选：提供反馈，告知玩家处于冷却状态
+                Debug.Log("无法投掷炸弹：处于冷却状态。");
+            }
         }
     }
+
 
     void HandleBombDetonate()
     {
