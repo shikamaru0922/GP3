@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public int playerScore;
     public float probeLength = 1.0f; // 探针的长度，可在Inspector中调节
     public Color probeColor = Color.green; // 探针的颜色
-    
+
     private Vector3 startPoint;        // 起点（通常为当前 GameObject 的位置）
     private Vector3 endPoint;          // 初始方向的终点
     public Vector3 standtargetAngel;  // 目标方向的终点
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     [Header("Rotation Settings")]
     public float rotationSpeed = 1f;  // 旋转速度（度/秒）
     private bool isRotating = false;  // 标记旋转是否正在进行
-    
+
     [Header("Bomb Settings")]
     public int maxBombsBeforeCooldown = 2;    // 扔几次炸弹后进入冷却
     public float bombCooldownDuration = 5f;   // 冷却持续时间，可在 Inspector 中调整
@@ -39,20 +39,23 @@ public class PlayerController : MonoBehaviour
     private float bombCooldownTimer = 0f;     // 冷却计时器
     private bool isBombCooldown = false;      // 是否处于冷却状态
 
-      
     // New variables for raycasting interaction
     [Header("Interaction Settings")]
     public float interactionRange = 5f;                    // Maximum interaction distance
     private List<GameObject> interactedItems = new List<GameObject>(); // List of interacted items
+
+    public Animator animator; // Animator 组件的引用
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        //animator = GetComponent<Animator>(); // 获取 Animator 组件
         Cursor.lockState = CursorLockMode.Locked;
 
         // 保存初始位置
         startPosition = transform.position;
-        
-        //调整角度
+
+        // 调整角度
         Vector3 startPoint = transform.position;
         Vector3 endPoint = startPoint + Vector3.down * probeLength;
     }
@@ -63,7 +66,7 @@ public class PlayerController : MonoBehaviour
         HandleBombThrow();
         HandleBombDetonate();
         HandleResetPosition();
-        HandleInteraction(); 
+        HandleInteraction();
         // 处理炸弹冷却计时器
         if (isBombCooldown)
         {
@@ -84,6 +87,7 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
         AnimateAngle();
         MaxSpeedCheck();
+        UpdateAnimatorStates();
     }
 
     public void AnimateAngle()
@@ -128,20 +132,20 @@ public class PlayerController : MonoBehaviour
                 isRotating = false;
             }
             // 可选：在此处重置旋转或保持当前旋转
-        }}
+        }
+    }
 
-    
     private void OnDrawGizmos()
     {
         // 设置探针的起始点为当前对象的位置
         Vector3 startPoint = transform.position;
-        
+
         // 探针的方向是物体的下方
         Vector3 endPoint = startPoint + Vector3.down * probeLength;
 
         // 设置 Gizmos 的颜色，方便可视化
         Gizmos.color = probeColor;
-        
+
         // 绘制探针的线段
         Gizmos.DrawLine(startPoint, endPoint);
         Gizmos.DrawLine(startPoint, standtargetAngel);
@@ -150,17 +154,13 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawSphere(endPoint, 0.05f); // 小球的半径可以调节
     }
 
-
     public void MaxSpeedCheck()
     {
         if (gravityNum == 0)
         {
             if (rb.velocity.magnitude > maxspeed_inSpace)
-            rb.velocity = rb.velocity.normalized * maxspeed_inSpace;
-            Debug.Log(rb.velocity.magnitude);
+                rb.velocity = rb.velocity.normalized * maxspeed_inSpace;
         }
-        
-        
     }
 
     void LookAround()
@@ -184,8 +184,6 @@ public class PlayerController : MonoBehaviour
         Vector3 cameraForward = Camera.main.transform.forward;
         Vector3 cameraRight = Camera.main.transform.right;
 
-        
-
         cameraForward.Normalize();
         cameraRight.Normalize();
 
@@ -197,12 +195,12 @@ public class PlayerController : MonoBehaviour
             moveDirection.Normalize();
         }
 
-        
-        
-            Vector3 move = moveDirection * moveSpeed * Time.fixedDeltaTime;
-            rb.MovePosition(transform.position + move);
-  
-        
+        Vector3 move = moveDirection * moveSpeed * Time.fixedDeltaTime;
+        rb.MovePosition(transform.position + move);
+
+        // 更新 Animator 参数
+        bool isMoving = moveDirection.magnitude > 0.1f; // 当移动输入大于一定值时，认为玩家在移动
+        animator.SetBool("isMoving", isMoving);
     }
 
     void HandleBombThrow()
@@ -228,6 +226,9 @@ public class PlayerController : MonoBehaviour
                     isBombCooldown = true;
                     bombCooldownTimer = 0f;
                 }
+
+                // 触发扔炸弹动画
+                animator.SetTrigger("ThrowTrigger");
             }
             else
             {
@@ -237,11 +238,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     void HandleBombDetonate()
     {
         if (Input.GetMouseButtonDown(1) && currentBomb != null)
         {
+            animator.SetTrigger("BombTrigger");
             currentBomb.Detonate();
             currentBomb = null;
         }
@@ -268,7 +269,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
             isGrounded = false;
     }
-    
+
     void HandleInteraction()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -293,6 +294,28 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("Interacted with: " + hit.collider.gameObject.name);
                 }
             }
+        }
+    }
+
+    void UpdateAnimatorStates()
+    {
+        // 更新 isGrounded 参数
+        bool wasGrounded = animator.GetBool("isGrounded");
+        animator.SetBool("isGrounded", isGrounded);
+
+        // 更新 isFalling 参数
+        bool isFalling = !isGrounded && rb.velocity.y < -0.1f && gravityNum == 1;
+        animator.SetBool("isFalling", isFalling);
+
+        // 更新 isFlying 参数
+        bool isFlying = gravityNum == 0;
+        animator.SetBool("isFlying", isFlying);
+
+        // 检测从下落到着陆的状态变化
+        if (!wasGrounded && isGrounded)
+        {
+            // 触发着陆动画
+            animator.SetTrigger("LandingTrigger");
         }
     }
 }
