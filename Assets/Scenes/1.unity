@@ -2184,6 +2184,14 @@ PrefabInstance:
       propertyPath: field of view
       value: 70
       objectReference: {fileID: 0}
+    - target: {fileID: 1544933351344355896, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1544933351344355896, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7162d0a5715667a4f814681bbdaf8e49, type: 3}
     - target: {fileID: 1945666031430249484, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2200,6 +2208,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.5935
       objectReference: {fileID: 0}
+    - target: {fileID: 4980020571911750346, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
+      propertyPath: cooldownFill
+      value: 
+      objectReference: {fileID: 1852105878470434150}
+    - target: {fileID: 4980020571911750346, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1750927379}
     - target: {fileID: 6304984991287230030, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
       propertyPath: m_LocalPosition.x
       value: 35
@@ -2240,6 +2256,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7951679279621463384, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2248,6 +2268,17 @@ PrefabInstance:
       addedObject: {fileID: 1741120169}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
+--- !u!114 &1852105878470434150 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1544933351344355896, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
+  m_PrefabInstance: {fileID: 1852105878470434149}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2414259617571656507
 PrefabInstance:
   m_ObjectHideFlags: 0
