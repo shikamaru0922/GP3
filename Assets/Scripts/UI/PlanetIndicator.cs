@@ -16,7 +16,6 @@ public class PlanetIndicator : MonoBehaviour
     private List<TargetData> planetTargets = new List<TargetData>();
     private List<TargetData> meteoriteTargets = new List<TargetData>();
 
-    // 目标的追踪数据类
     private class TargetData
     {
         public Transform targetTransform;
@@ -43,16 +42,8 @@ public class PlanetIndicator : MonoBehaviour
 
     void Update()
     {
-        foreach (var targetData in planetTargets)
-        {
-            UpdateTargetUI(targetData, isMeteorite: false);
-        }
-
-        foreach (var targetData in meteoriteTargets)
-        {
-            UpdateTargetUI(targetData, isMeteorite: true);
-        }
-
+        UpdateTargets(planetTargets, isMeteorite: false);
+        UpdateTargets(meteoriteTargets, isMeteorite: true);
         CheckForNewMeteorites();
     }
 
@@ -71,9 +62,6 @@ public class PlanetIndicator : MonoBehaviour
     private void AddTarget(Transform target, RectTransform distancePrefab, RectTransform arrowPrefab, List<TargetData> targetList, bool isMeteorite)
     {
         RectTransform distanceText = Instantiate(distancePrefab, worldSpaceCanvas.transform);
-        distanceText.anchorMin = new Vector2(0.5f, 0.5f);
-        distanceText.anchorMax = new Vector2(0.5f, 0.5f);
-        distanceText.pivot = new Vector2(0.5f, 0.5f);
         distanceText.localScale = Vector3.one;
 
         RectTransform arrow = null;
@@ -83,16 +71,10 @@ public class PlanetIndicator : MonoBehaviour
         {
             warningSign = Instantiate(arrowPrefab, worldSpaceCanvas.transform).GetComponent<Image>();
             warningSign.rectTransform.localScale = Vector3.one;
-            warningSign.rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
-            warningSign.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
-            warningSign.rectTransform.pivot = new Vector2(0.5f, 0.5f);
         }
         else
         {
             arrow = Instantiate(arrowPrefab, worldSpaceCanvas.transform);
-            arrow.anchorMin = new Vector2(0.5f, 0.5f);
-            arrow.anchorMax = new Vector2(0.5f, 0.5f);
-            arrow.pivot = new Vector2(0.5f, 0.5f);
             arrow.localScale = Vector3.one;
         }
 
@@ -100,9 +82,39 @@ public class PlanetIndicator : MonoBehaviour
         targetList.Add(new TargetData(target, distanceText, arrow, distanceTextComp, warningSign));
     }
 
+    private void UpdateTargets(List<TargetData> targetList, bool isMeteorite)
+    {
+        for (int i = targetList.Count - 1; i >= 0; i--) // 倒序遍历以安全移除元素
+        {
+            var targetData = targetList[i];
+
+            if (targetData.targetTransform == null) // 如果目标已被销毁
+            {
+                RemoveTarget(targetData, targetList);
+                continue;
+            }
+
+            UpdateTargetUI(targetData, isMeteorite);
+        }
+    }
+
+    private void RemoveTarget(TargetData targetData, List<TargetData> targetList)
+    {
+        if (targetData.distanceTextUI != null)
+            Destroy(targetData.distanceTextUI.gameObject);
+
+        if (targetData.arrowUI != null)
+            Destroy(targetData.arrowUI.gameObject);
+
+        if (targetData.warningSign != null)
+            Destroy(targetData.warningSign.gameObject);
+
+        targetList.Remove(targetData);
+    }
+
     private void UpdateTargetUI(TargetData targetData, bool isMeteorite)
     {
-        if (targetData.targetTransform == null || mainCamera == null || worldSpaceCanvas == null)
+        if (mainCamera == null || worldSpaceCanvas == null)
         {
             return;
         }
@@ -116,13 +128,13 @@ public class PlanetIndicator : MonoBehaviour
         {
             if (isMeteorite)
             {
-                targetData.warningSign.gameObject.SetActive(false);
-                targetData.distanceTextUI.gameObject.SetActive(true);
+                targetData.warningSign?.gameObject.SetActive(false);
+                targetData.distanceTextUI?.gameObject.SetActive(true);
             }
             else
             {
-                targetData.arrowUI.gameObject.SetActive(false);
-                targetData.distanceTextUI.gameObject.SetActive(true);
+                targetData.arrowUI?.gameObject.SetActive(false);
+                targetData.distanceTextUI?.gameObject.SetActive(true);
             }
 
             RectTransform canvasRect = worldSpaceCanvas.GetComponent<RectTransform>();
@@ -139,8 +151,8 @@ public class PlanetIndicator : MonoBehaviour
         {
             if (isMeteorite)
             {
-                targetData.distanceTextUI.gameObject.SetActive(false);
-                targetData.warningSign.gameObject.SetActive(true);
+                targetData.distanceTextUI?.gameObject.SetActive(false);
+                targetData.warningSign?.gameObject.SetActive(true);
 
                 RectTransform canvasRect = worldSpaceCanvas.GetComponent<RectTransform>();
                 Vector2 arrowPosition = CalculateOffScreenPosition(screenPoint, canvasRect);
@@ -148,8 +160,8 @@ public class PlanetIndicator : MonoBehaviour
             }
             else
             {
-                targetData.distanceTextUI.gameObject.SetActive(false);
-                targetData.arrowUI.gameObject.SetActive(true);
+                targetData.distanceTextUI?.gameObject.SetActive(false);
+                targetData.arrowUI?.gameObject.SetActive(true);
 
                 RectTransform canvasRect = worldSpaceCanvas.GetComponent<RectTransform>();
                 Vector2 arrowPosition = CalculateOffScreenPosition(screenPoint, canvasRect);
