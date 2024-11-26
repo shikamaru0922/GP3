@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
             if (!isRotating)
             {
                 isRotating = true;
-
+                
                 // 计算目标方向（从 startPoint 指向 standtargetAngel）
                 Vector3 targetDirection = standtargetAngel - startPoint;
 
@@ -304,7 +304,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isGrounded", isGrounded);
 
         // 更新 isFalling 参数
-        bool isFalling = !isGrounded && rb.velocity.y < -0.1f && gravityNum == 1;
+        bool isFalling = !isGrounded && gravityNum == 1;
         animator.SetBool("isFalling", isFalling);
 
         // 更新 isFlying 参数

@@ -17,6 +17,7 @@ using UnityEngine;
             if (other.CompareTag("Player"))
             {
                 playerController = other.GetComponent<PlayerController>();
+                playerController.animator.SetTrigger("LandingTrigger");
                 playerController.standtargetAngel = gameObject.transform.position;
                 // Start coroutine to change gravity after a delay
                 if (gravityChangeCoroutine != null)
