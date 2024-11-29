@@ -70,11 +70,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2399749334213612601, guid: 92a5e30c210e95b42b1f3a3d65af91e5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4506489986859861886, guid: 92a5e30c210e95b42b1f3a3d65af91e5, type: 3}
+    - {fileID: 1823213733928828712, guid: 92a5e30c210e95b42b1f3a3d65af91e5, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2399749334213612596, guid: 92a5e30c210e95b42b1f3a3d65af91e5, type: 3}
       insertIndex: -1
@@ -148,6 +149,10 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 21aa2b8ae5347f147a6a042f6e651dd5, type: 3}
       propertyPath: m_Name
       value: Alien_Design8
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 21aa2b8ae5347f147a6a042f6e651dd5, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

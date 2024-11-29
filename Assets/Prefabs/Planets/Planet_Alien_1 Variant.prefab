@@ -34,15 +34,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4051540702803353886, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.5
+      value: -74.53295
       objectReference: {fileID: 0}
     - target: {fileID: 4051540702803353886, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 57.1
+      value: -4.2997475
       objectReference: {fileID: 0}
     - target: {fileID: 4051540702803353886, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -52.9
+      value: 22.065697
       objectReference: {fileID: 0}
     - target: {fileID: 4051540702803353886, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -79,6 +79,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 2541896467267544847, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
+    - {fileID: 16099842616576514, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4051540702803353886, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
       insertIndex: -1
@@ -164,6 +165,10 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 16eb1ce9abd69ec48bc01307fd93ad1a, type: 3}
       propertyPath: m_Name
       value: Alien_Design1
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 16eb1ce9abd69ec48bc01307fd93ad1a, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
