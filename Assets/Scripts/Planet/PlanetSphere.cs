@@ -18,6 +18,13 @@ using UnityEngine;
             {
                 playerController = other.GetComponent<PlayerController>();
                 playerController.animator.SetTrigger("LandingTrigger");
+                // 检查下落速度是否超过阈值
+                float landingSpeed = Mathf.Abs(playerController.rb.velocity.magnitude);
+                if (landingSpeed > playerController.landingSpeedThreshold)
+                {
+                    // 扣除生命值
+                    playerController.TakeDamage(1);
+                }
                 playerController.standtargetAngel = gameObject.transform.position;
                 // Start coroutine to change gravity after a delay
                 if (gravityChangeCoroutine != null)
