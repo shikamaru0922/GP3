@@ -105,6 +105,7 @@ MonoBehaviour:
   moveSpeed: 10
   maxspeed_inSpace: 30
   mouseSensitivity: 2
+  rb: {fileID: 0}
   gravityNum: 0
   playerScore: 0
   probeLength: 1.43
@@ -114,7 +115,11 @@ MonoBehaviour:
   maxBombsBeforeCooldown: 2
   bombCooldownDuration: 5
   interactionRange: 5
+  maxHealth: 3
+  currentHealth: 0
+  landingSpeedThreshold: 15
   animator: {fileID: 297335237710834222}
+  taskTargetCount: 0
 --- !u!54 &647689049350001849
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -382,7 +387,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7866730958073780805}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &1955912281127484544
 MonoBehaviour:
   m_ObjectHideFlags: 0

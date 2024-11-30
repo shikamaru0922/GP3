@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public float maxspeed_inSpace = 30;
     public float mouseSensitivity = 2f;    // 鼠标灵敏度
 
-    private Rigidbody rb;
+    public Rigidbody rb;
     private bool isGrounded;
     private Bomb currentBomb;
     private float xRotation = 0f;
@@ -44,7 +44,15 @@ public class PlayerController : MonoBehaviour
     public float interactionRange = 5f;                    // Maximum interaction distance
     private List<GameObject> interactedItems = new List<GameObject>(); // List of interacted items
 
+    [Header("Player Health Settings")]
+    public int maxHealth = 3;    // 最大生命值
+    public int currentHealth;   // 当前生命值
+    public float landingSpeedThreshold = 22f; // 着陆速度阈值，超过此值则扣除生命值
+
     public Animator animator; // Animator 组件的引用
+
+    [Header("Task Settings")]
+    public int taskTargetCount = 0; // 已完成的任务目标数量
 
     void Start()
     {
@@ -54,6 +62,9 @@ public class PlayerController : MonoBehaviour
 
         // 保存初始位置
         startPosition = transform.position;
+
+        // 初始化生命值
+        currentHealth = maxHealth;
 
         // 调整角度
         Vector3 startPoint = transform.position;
@@ -67,6 +78,7 @@ public class PlayerController : MonoBehaviour
         HandleBombDetonate();
         HandleResetPosition();
         HandleInteraction();
+        // Debug.Log(rb.velocity.magnitude);
         // 处理炸弹冷却计时器
         if (isBombCooldown)
         {
@@ -104,7 +116,7 @@ public class PlayerController : MonoBehaviour
             if (!isRotating)
             {
                 isRotating = true;
-                
+
                 // 计算目标方向（从 startPoint 指向 standtargetAngel）
                 Vector3 targetDirection = standtargetAngel - startPoint;
 
@@ -274,24 +286,28 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            // Define the ray originating from the camera
+            // 定义从摄像机发出的射线
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             RaycastHit hit;
 
-            // Perform the raycast
+            // 执行射线检测
             if (Physics.Raycast(ray, out hit, interactionRange))
             {
-                // Check if the hit object has the Interactable tag
+                // 检查被击中的物体是否有 "Interactable" 标签
                 if (hit.collider.CompareTag("Interactable"))
                 {
-                    // Add the item to the interacted items list
+                    // 增加任务目标计数
+                    taskTargetCount++;
+
+                    // 添加到已交互的物品列表（可选）
                     interactedItems.Add(hit.collider.gameObject);
 
-                    // Destroy the interactable object
+                    // 销毁可交互对象
                     Destroy(hit.collider.gameObject);
 
-                    // Optional: Provide feedback to the player
-                    Debug.Log("Interacted with: " + hit.collider.gameObject.name);
+                    // 可选：提供反馈
+                    Debug.Log("与物体交互：" + hit.collider.gameObject.name);
+                    Debug.Log("当前任务目标数量：" + taskTargetCount);
                 }
             }
         }
@@ -317,5 +333,48 @@ public class PlayerController : MonoBehaviour
             // 触发着陆动画
             animator.SetTrigger("LandingTrigger");
         }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        currentHealth -= amount;
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            // 玩家死亡，处理死亡逻辑
+            Die();
+        }
+        else
+        {
+            // 可选：播放受伤动画或效果
+            Debug.Log("玩家受伤，当前生命值：" + currentHealth);
+        }
+    }
+
+    void Die()
+    {
+        // 禁用玩家控制
+        this.enabled = false;
+
+        // 禁用玩家的碰撞体和刚体（可选）
+        Collider playerCollider = GetComponent<Collider>();
+        if (playerCollider != null)
+        {
+            playerCollider.enabled = false;
+        }
+        rb.isKinematic = true;
+
+        // 显示死亡的 UI 占位符
+        ShowDeathUI();
+
+        // 输出日志
+        Debug.Log("玩家死亡！");
+    }
+
+    void ShowDeathUI()
+    {
+        // 显示死亡的 UI 占位符
+        // 这里可以添加代码来显示您将来创建的死亡 UI
+
     }
 }
