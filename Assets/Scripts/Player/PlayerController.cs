@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float mouseSensitivity = 2f;    // 鼠标灵敏度
 
     public Rigidbody rb;
-    private bool isGrounded;
+    public bool isGrounded;
     private Bomb currentBomb;
     private float xRotation = 0f;
 
