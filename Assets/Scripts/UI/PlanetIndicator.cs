@@ -12,6 +12,7 @@ public class PlanetIndicator : MonoBehaviour
     public RectTransform meteoriteDistanceTextPrefab;
     public RectTransform warningSignPrefab;
     public float edgePadding = 50f;
+    public Vector2 distanceTextOffset = new Vector2(0, 50);
 
     private List<TargetData> planetTargets = new List<TargetData>();
     private List<TargetData> meteoriteTargets = new List<TargetData>();
@@ -143,6 +144,8 @@ public class PlanetIndicator : MonoBehaviour
                 (viewportPoint.x - 0.5f) * canvasRect.sizeDelta.x,
                 (viewportPoint.y - 0.5f) * canvasRect.sizeDelta.y
             );
+
+            canvasPosition += distanceTextOffset;
 
             targetData.distanceTextUI.anchoredPosition = canvasPosition;
             targetData.distanceTextComponent.text = $"{distanceToTarget:F1}m";
