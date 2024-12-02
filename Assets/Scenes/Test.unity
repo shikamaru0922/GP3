@@ -2647,6 +2647,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 6549459515135713601, guid: 11bf23e1e7240404ba1a47b856ea6701, type: 3}
+      propertyPath: alignAxis
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6549459515135713601, guid: 11bf23e1e7240404ba1a47b856ea6701, type: 3}
+      propertyPath: interactableItemPrefab
+      value: 
+      objectReference: {fileID: 1658914894337653328, guid: fb4858e14ab35406f94f80bf1f70cb38, type: 3}
     - target: {fileID: 6932153745703804278, guid: 11bf23e1e7240404ba1a47b856ea6701, type: 3}
       propertyPath: m_Name
       value: Planet_Ice_1
