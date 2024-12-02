@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class PlanetSphere : MonoBehaviour
 {
-    public float newGravityConstant = 0.2f; // New gravity constant for planet body
+    public float newGravityConstant = 0.2f; // 新的重力常数
     private float currentGravityConstant;
-    public float waitTime = 0.5f;
+    public float waitTime = 0.5f; // 等待时间
     public Planet planet;
     public PlayerController playerController;
 
@@ -13,7 +13,8 @@ public class PlanetSphere : MonoBehaviour
 
     public GameObject interactableItemPrefab; // InteractableItem 的预制件
 
-    private bool itemGenerated = false; // 用于跟踪是否已经生成过 InteractableItem
+    private GameObject interactableItemInstance = null; // 生成的 InteractableItem 的引用
+    private Coroutine deactivateItemCoroutine = null; // 使 InteractableItem 不激活的协程引用
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,12 +30,26 @@ public class PlanetSphere : MonoBehaviour
                 playerController.TakeDamage(1);
             }
             playerController.standtargetAngel = gameObject.transform.position;
-            // Start coroutine to change gravity after a delay
+            // 启动协程，延迟改变重力
             if (gravityChangeCoroutine != null)
             {
-                StopCoroutine(gravityChangeCoroutine); // Stop any existing coroutine to reset the timer
+                StopCoroutine(gravityChangeCoroutine); // 停止已有的协程
             }
             gravityChangeCoroutine = StartCoroutine(ChangeGravityAfterDelay());
+
+            // 如果有正在运行的协程，停止它
+            if (deactivateItemCoroutine != null)
+            {
+                StopCoroutine(deactivateItemCoroutine);
+                deactivateItemCoroutine = null;
+            }
+
+            // 如果 InteractableItem 存在且未激活，重新激活它
+            if (interactableItemInstance != null && !interactableItemInstance.activeSelf)
+            {
+                interactableItemInstance.SetActive(true);
+                Debug.Log("InteractableItem reactivated");
+            }
         }
     }
 
@@ -43,13 +58,19 @@ public class PlanetSphere : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerController.standtargetAngel = Vector3.zero;
+            // 启动协程，1 秒后将 InteractableItem 设置为不激活
+            if (deactivateItemCoroutine != null)
+            {
+                StopCoroutine(deactivateItemCoroutine);
+            }
+            deactivateItemCoroutine = StartCoroutine(DeactivateItemAfterDelay(1f)); // 1 秒延迟
         }
     }
 
     private IEnumerator ChangeGravityAfterDelay()
     {
-        yield return new WaitForSeconds(waitTime); // Wait for the specified time
-        planet.currentGravityConstant = newGravityConstant; // Change to new gravity constant
+        yield return new WaitForSeconds(waitTime); // 等待指定时间
+        planet.currentGravityConstant = newGravityConstant; // 更改重力常数
         Debug.Log("Gravity constant changed after delay");
 
         // 放置 InteractableItem
@@ -58,14 +79,19 @@ public class PlanetSphere : MonoBehaviour
 
     void PlaceInteractableItem()
     {
-        // 检查是否已经生成过
-        if (itemGenerated)
+        // 如果 InteractableItem 已经存在且激活，直接返回
+        if (interactableItemInstance != null && interactableItemInstance.activeSelf)
         {
-            return; // 已经生成过，直接返回
+            return;
         }
 
-        // 标记为已生成
-        itemGenerated = true;
+        // 如果 InteractableItem 已经存在但未激活，重新激活它
+        if (interactableItemInstance != null && !interactableItemInstance.activeSelf)
+        {
+            interactableItemInstance.SetActive(true);
+            Debug.Log("InteractableItem reactivated in PlaceInteractableItem");
+            return;
+        }
 
         // 获取 GameObject 的半径
         float radius = GetObjectRadius();
@@ -83,7 +109,19 @@ public class PlanetSphere : MonoBehaviour
         Quaternion itemRotation = Quaternion.Euler(90f, 0f, 0f);
 
         // 实例化 InteractableItem
-        GameObject interactableItem = Instantiate(interactableItemPrefab, itemPosition, itemRotation);
+        interactableItemInstance = Instantiate(interactableItemPrefab, itemPosition, itemRotation);
+    }
+
+    private IEnumerator DeactivateItemAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        // 将 InteractableItem 设置为不激活
+        if (interactableItemInstance != null && interactableItemInstance.activeSelf)
+        {
+            interactableItemInstance.SetActive(false);
+            Debug.Log("InteractableItem deactivated after delay");
+        }
+        deactivateItemCoroutine = null; // 清除协程引用
     }
 
     float GetObjectRadius()
