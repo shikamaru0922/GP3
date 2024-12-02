@@ -22,6 +22,7 @@ public class PlanetSphere : MonoBehaviour
         {
             playerController = other.GetComponent<PlayerController>();
             playerController.animator.SetTrigger("LandingTrigger");
+            //playerController.audioSource.PlayOneShot(landingSound);
             // 检查下落速度是否超过阈值
             float landingSpeed = Mathf.Abs(playerController.rb.velocity.magnitude);
             if (landingSpeed > playerController.landingSpeedThreshold)

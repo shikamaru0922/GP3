@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -54,10 +55,21 @@ public class PlayerController : MonoBehaviour
     [Header("Task Settings")]
     public int taskTargetCount = 0; // 已完成的任务目标数量
 
+    [Header("Audio Settings")]
+    public AudioSource movementAudioSource; // 用于播放走路音效
+    public AudioSource landingAudioSource;  // 用于播放落地音效
+    public AudioSource actionAudioSource;   // 用于播放其他动作音效
+    public AudioClip walkingSound;          // 走路音效
+    public AudioClip landingSound;          // 落地音效
+    public AudioClip throwBombSound;        // 扔炸弹音效
+
+    // 管理音效播放状态的字典
+    private Dictionary<AudioClip, bool> audioClipPlayingStatus = new Dictionary<AudioClip, bool>();
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //animator = GetComponent<Animator>(); // 获取 Animator 组件
+        
         Cursor.lockState = CursorLockMode.Locked;
 
         // 保存初始位置
@@ -66,9 +78,28 @@ public class PlayerController : MonoBehaviour
         // 初始化生命值
         currentHealth = maxHealth;
 
-        // 调整角度
-        Vector3 startPoint = transform.position;
-        Vector3 endPoint = startPoint + Vector3.down * probeLength;
+        // 初始化音频组件
+        AudioSource[] audioSources = GetComponents<AudioSource>();
+        if (audioSources.Length >= 3)
+        {
+            movementAudioSource = audioSources[0];
+            landingAudioSource = audioSources[1];
+            actionAudioSource = audioSources[2];
+        }
+        else
+        {
+            Debug.LogError("需要在玩家对象上添加三个 AudioSource 组件！");
+        }
+
+        // 设置走路音效的 AudioSource
+        movementAudioSource.clip = walkingSound;
+        movementAudioSource.loop = true; // 设置为循环播放
+        movementAudioSource.playOnAwake = false; // 不在 Awake 时自动播放
+
+        // 设置落地音效的 AudioSource
+        landingAudioSource.clip = landingSound;
+        landingAudioSource.loop = false;
+        landingAudioSource.playOnAwake = false;
     }
 
     void Update()
@@ -78,7 +109,7 @@ public class PlayerController : MonoBehaviour
         HandleBombDetonate();
         HandleResetPosition();
         HandleInteraction();
-        // Debug.Log(rb.velocity.magnitude);
+
         // 处理炸弹冷却计时器
         if (isBombCooldown)
         {
@@ -143,7 +174,6 @@ public class PlayerController : MonoBehaviour
                 transform.DOKill();
                 isRotating = false;
             }
-            // 可选：在此处重置旋转或保持当前旋转
         }
     }
 
@@ -213,6 +243,24 @@ public class PlayerController : MonoBehaviour
         // 更新 Animator 参数
         bool isMoving = moveDirection.magnitude > 0.1f; // 当移动输入大于一定值时，认为玩家在移动
         animator.SetBool("isMoving", isMoving);
+
+        // 控制走路音效的播放和停止
+        if (isMoving && isGrounded)
+        {
+            if (!movementAudioSource.isPlaying)
+            {
+                movementAudioSource.Play(); // 开始播放走路音效
+                Debug.Log("开始播放走路音效");
+            }
+        }
+        else
+        {
+            if (movementAudioSource.isPlaying)
+            {
+                movementAudioSource.Stop(); // 停止播放走路音效
+                Debug.Log("停止播放走路音效");
+            }
+        }
     }
 
     void HandleBombThrow()
@@ -241,6 +289,19 @@ public class PlayerController : MonoBehaviour
 
                 // 触发扔炸弹动画
                 animator.SetTrigger("ThrowTrigger");
+
+                // 播放扔炸弹音效（防止重复播放）
+                if (!IsAudioClipPlaying(throwBombSound))
+                {
+                    actionAudioSource.PlayOneShot(throwBombSound);
+                    SetAudioClipPlaying(throwBombSound, true);
+                    StartCoroutine(ResetAudioClipPlayingStatus(throwBombSound));
+                    Debug.Log("播放扔炸弹音效");
+                }
+                else
+                {
+                    Debug.Log("扔炸弹音效正在播放，跳过播放");
+                }
             }
             else
             {
@@ -248,6 +309,34 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("无法投掷炸弹：处于冷却状态。");
             }
         }
+    }
+
+    // 音效播放状态管理方法
+    bool IsAudioClipPlaying(AudioClip clip)
+    {
+        if (audioClipPlayingStatus.ContainsKey(clip))
+        {
+            return audioClipPlayingStatus[clip];
+        }
+        return false;
+    }
+
+    void SetAudioClipPlaying(AudioClip clip, bool isPlaying)
+    {
+        if (audioClipPlayingStatus.ContainsKey(clip))
+        {
+            audioClipPlayingStatus[clip] = isPlaying;
+        }
+        else
+        {
+            audioClipPlayingStatus.Add(clip, isPlaying);
+        }
+    }
+
+    IEnumerator ResetAudioClipPlayingStatus(AudioClip clip)
+    {
+        yield return new WaitForSeconds(clip.length);
+        SetAudioClipPlaying(clip, false);
     }
 
     void HandleBombDetonate()
@@ -332,6 +421,17 @@ public class PlayerController : MonoBehaviour
         {
             // 触发着陆动画
             animator.SetTrigger("LandingTrigger");
+
+            // 播放落地音效（如果未在播放）
+            if (!landingAudioSource.isPlaying)
+            {
+                landingAudioSource.Play();
+                Debug.Log("播放落地音效");
+            }
+            else
+            {
+                Debug.Log("落地音效正在播放，跳过播放");
+            }
         }
     }
 
@@ -375,6 +475,5 @@ public class PlayerController : MonoBehaviour
     {
         // 显示死亡的 UI 占位符
         // 这里可以添加代码来显示您将来创建的死亡 UI
-
     }
 }
