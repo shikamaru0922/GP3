@@ -39,7 +39,7 @@ public class Meteorite : MonoBehaviour
         }
 
         // 在 lifeTime 秒后销毁陨石
-        Destroy(gameObject, lifeTime);
+        Invoke(nameof(DestroyMeteorite), lifeTime);
     }
 
     void Update()
@@ -79,12 +79,29 @@ public class Meteorite : MonoBehaviour
             Debug.Log("Player attached to meteorite.");
             AttachPlayer(other.gameObject);
         }
+        if (other.CompareTag("Gravity"))
+        {
+            Debug.Log("Meteorite collided with grabity.");
+            DestroyMeteorite();
+        }
     }
+
+    // 如果您使用的是碰撞而非触发器，请使用以下方法
+    /*
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("Meteorite collided with Ground.");
+            DestroyMeteorite();
+        }
+    }
+    */
 
     void AttachPlayer(GameObject player)
     {
         playerObject = player;
-        player.transform.SetParent(transform);
+        player.transform.SetParent(transform, true); // 确保玩家的世界位置保持不变
         playerAttached = true;
         rotationSpeed = 0f; // 停止陨石旋转
 
@@ -102,7 +119,7 @@ public class Meteorite : MonoBehaviour
     {
         if (playerObject != null)
         {
-            playerObject.transform.SetParent(null);
+            playerObject.transform.SetParent(null, true); // 确保玩家的世界位置保持不变
             playerAttached = false;
 
             // 可选：重新启用玩家控制
@@ -124,16 +141,17 @@ public class Meteorite : MonoBehaviour
 
     public void DestroyMeteorite()
     {
+        // 首先检查玩家是否附着在陨石上
+        if (playerAttached)
+        {
+            // 如果玩家附着，先分离玩家
+            DetachPlayer();
+        }
+
         // 实例化爆炸特效
         if (explosionEffect != null)
         {
             Instantiate(explosionEffect, transform.position, Quaternion.identity);
-        }
-
-        // 如果玩家被吸附在陨石上，解除吸附
-        if (playerAttached)
-        {
-            DetachPlayer();
         }
 
         // 销毁陨石

@@ -565,29 +565,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1254046711347283914, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
-      propertyPath: m_Emitting
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1254046711347283914, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
-      propertyPath: m_Parameters.numCornerVertices
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3255695031175358060, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
       propertyPath: m_Name
       value: Meteorite
       objectReference: {fileID: 0}
     - target: {fileID: 4671206363740997317, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 278.92856
+      value: 259.9
       objectReference: {fileID: 0}
     - target: {fileID: 4671206363740997317, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 73.13
+      value: 53.9
       objectReference: {fileID: 0}
     - target: {fileID: 4671206363740997317, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -29.3
+      value: -40.1
       objectReference: {fileID: 0}
     - target: {fileID: 4671206363740997317, guid: 3020d92155b8b4c488b676115ae040e7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1109,7 +1101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6932153745703804283, guid: 11bf23e1e7240404ba1a47b856ea6701, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 95.899994
+      value: 48.6
       objectReference: {fileID: 0}
     - target: {fileID: 6932153745703804283, guid: 11bf23e1e7240404ba1a47b856ea6701, type: 3}
       propertyPath: m_LocalPosition.y
