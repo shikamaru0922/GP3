@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BlackHole : MonoBehaviour
 {
@@ -138,6 +139,7 @@ public class BlackHole : MonoBehaviour
         }*/
 
         // 输出日志
+        SceneManager.LoadScene("Opening");
         Debug.Log("Game Over! Player entered the black hole.");
     }
 }

@@ -34,6 +34,7 @@ public class GameTimer : MonoBehaviour
             if (remainingTime <= 0f)
             {
                 remainingTime = 0f;
+                SceneManager.LoadScene("Opening");
                 isGameOver = true;
                 GameOver();
             }
@@ -68,10 +69,10 @@ public class GameTimer : MonoBehaviour
         }
 
         // 暂停游戏时间
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
 
         // 输出日志信息
-        Debug.Log("游戏结束！");
+        
     }
 
     // 重新开始游戏的方法，可在游戏结束 UI 的按钮上绑定

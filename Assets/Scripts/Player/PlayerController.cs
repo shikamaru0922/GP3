@@ -378,31 +378,29 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            // 定义从摄像机发出的射线
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             RaycastHit hit;
 
-            // 执行射线检测
             if (Physics.Raycast(ray, out hit, interactionRange))
             {
-                // 检查被击中的物体是否有 "Interactable" 标签
                 if (hit.collider.CompareTag("Interactable"))
                 {
-                    // 增加任务目标计数
                     taskTargetCount++;
+                    Debug.Log("Current task target count: " + taskTargetCount);
+                    
+
                     if (taskTargetCount >= 3)
                     {
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+                        Debug.Log("Cursor unlocked");
                         SceneManager.LoadScene("Victory");
                     }
 
-                    // 添加到已交互的物品列表（可选）
                     interactedItems.Add(hit.collider.gameObject);
-                    // 销毁可交互对象
                     Destroy(hit.collider.gameObject);
 
-                    // 可选：提供反馈
-                    Debug.Log("与物体交互：" + hit.collider.gameObject.name);
-                    Debug.Log("当前任务目标数量：" + taskTargetCount);
+                    Debug.Log("Interacted with object: " + hit.collider.gameObject.name);
                 }
             }
         }

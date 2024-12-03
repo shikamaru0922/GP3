@@ -16,40 +16,33 @@ public class PlanetSphere : MonoBehaviour
     private GameObject interactableItemInstance = null; // 生成的 InteractableItem 的引用
     private Coroutine deactivateItemCoroutine = null; // 使 InteractableItem 不激活的协程引用
     
+    private bool hasGeneratedInteractableItem = false; // Flag to track item generation
+
+    
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             playerController = other.GetComponent<PlayerController>();
             playerController.animator.SetTrigger("LandingTrigger");
-            //playerController.audioSource.PlayOneShot(landingSound);
-            // 检查下落速度是否超过阈值
-            float landingSpeed = Mathf.Abs(playerController.rb.velocity.magnitude);
-            if (landingSpeed > playerController.landingSpeedThreshold)
-            {
-                // 扣除生命值
-                playerController.TakeDamage(1);
-            }
-            playerController.standtargetAngel = gameObject.transform.position;
-            // 启动协程，延迟改变重力
+
+            // Existing gravity change logic
             if (gravityChangeCoroutine != null)
             {
-                StopCoroutine(gravityChangeCoroutine); // 停止已有的协程
+                StopCoroutine(gravityChangeCoroutine);
             }
             gravityChangeCoroutine = StartCoroutine(ChangeGravityAfterDelay());
 
-            // 如果有正在运行的协程，停止它
-            if (deactivateItemCoroutine != null)
-            {
-                StopCoroutine(deactivateItemCoroutine);
-                deactivateItemCoroutine = null;
-            }
-
-            // 如果 InteractableItem 存在且未激活，重新激活它
+            // Reactivate or place the item as needed
             if (interactableItemInstance != null && !interactableItemInstance.activeSelf)
             {
                 interactableItemInstance.SetActive(true);
                 Debug.Log("InteractableItem reactivated");
+            }
+            else if (!hasGeneratedInteractableItem)
+            {
+                PlaceInteractableItem();
             }
         }
     }
@@ -59,12 +52,16 @@ public class PlanetSphere : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerController.standtargetAngel = Vector3.zero;
-            // 启动协程，1 秒后将 InteractableItem 设置为不激活
-            if (deactivateItemCoroutine != null)
+
+            // Deactivate the item after a delay if it exists and is active
+            if (interactableItemInstance != null && interactableItemInstance.activeSelf)
             {
-                StopCoroutine(deactivateItemCoroutine);
+                if (deactivateItemCoroutine != null)
+                {
+                    StopCoroutine(deactivateItemCoroutine);
+                }
+                deactivateItemCoroutine = StartCoroutine(DeactivateItemAfterDelay(0.5f));
             }
-            deactivateItemCoroutine = StartCoroutine(DeactivateItemAfterDelay(1f)); // 1 秒延迟
         }
     }
 
@@ -80,50 +77,44 @@ public class PlanetSphere : MonoBehaviour
 
     void PlaceInteractableItem()
     {
-
-        // 如果 InteractableItem 已经存在且激活，直接返回
-        if (interactableItemInstance != null && interactableItemInstance.activeSelf)
+        // If the item has already been generated, do not generate it again
+        if (hasGeneratedInteractableItem)
         {
+            if (interactableItemInstance != null && !interactableItemInstance.activeSelf)
+            {
+                interactableItemInstance.SetActive(true);
+                Debug.Log("InteractableItem reactivated in PlaceInteractableItem");
+            }
             return;
         }
 
-        // 如果 InteractableItem 已经存在但未激活，重新激活它
-        if (interactableItemInstance != null && !interactableItemInstance.activeSelf)
-        {
-            interactableItemInstance.SetActive(true);
-            Debug.Log("InteractableItem reactivated in PlaceInteractableItem");
-            return;
-        }
-
-        // 获取 GameObject 的半径
+        // Get the radius and calculate the placement position and rotation
         float radius = GetObjectRadius();
-
-        // 决定放置方向（从 GameObject 的中心到放置位置的方向）
-        Vector3 placementDirection = transform.forward; // 您可以根据需要更改方向
-
-        // 规范化方向向量
+        Vector3 placementDirection = transform.forward; // Adjust as needed
         placementDirection.Normalize();
-
-        // 计算放置位置：中心点 + （方向向量 * 半径）
         Vector3 itemPosition = transform.position + placementDirection * radius;
-
-        // 创建一个绕 x 轴旋转 90 度的旋转
         Quaternion itemRotation = Quaternion.Euler(90f, 0f, 0f);
 
-        // 实例化 InteractableItem
+        // Instantiate the InteractableItem
         interactableItemInstance = Instantiate(interactableItemPrefab, itemPosition, itemRotation);
+
+        // Set the flag to true since we've now generated the item
+        hasGeneratedInteractableItem = true;
+
+        Debug.Log("InteractableItem generated for the first time");
     }
 
     private IEnumerator DeactivateItemAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        // 将 InteractableItem 设置为不激活
+
+        // Only deactivate if the item exists and is active
         if (interactableItemInstance != null && interactableItemInstance.activeSelf)
         {
             interactableItemInstance.SetActive(false);
             Debug.Log("InteractableItem deactivated after delay");
         }
-        deactivateItemCoroutine = null; // 清除协程引用
+        deactivateItemCoroutine = null;
     }
 
     float GetObjectRadius()
