@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static DG.Tweening.DOTweenModuleUtils;
 
 public class PlanetIndicator : MonoBehaviour
 {
@@ -15,17 +16,18 @@ public class PlanetIndicator : MonoBehaviour
     public Vector2 planetOffset = new Vector2(0, 50); // 行星文本的偏移
     public Vector2 meteoriteOffset = new Vector2(0, 30); // 陨石文本的偏移
 
+    public string targetPlanetLayerName = "TargetPlanet"; // 目标行星的 Layer 名称
+
     private List<TargetData> planetTargets = new List<TargetData>(); // 行星目标列表
     private List<TargetData> meteoriteTargets = new List<TargetData>(); // 陨石目标列表
 
-    // 存储目标相关数据的类
     private class TargetData
     {
-        public Transform targetTransform; // 目标位置
-        public RectTransform distanceTextUI; // 距离文本 UI
-        public RectTransform arrowUI; // 箭头 UI
-        public Text distanceTextComponent; // 文本组件
-        public Image warningSign; // 警告标志
+        public Transform targetTransform;
+        public RectTransform distanceTextUI;
+        public RectTransform arrowUI;
+        public Text distanceTextComponent;
+        public Image warningSign;
 
         public TargetData(Transform target, RectTransform distanceText, RectTransform arrow, Text distanceTextComp, Image warningSignImage)
         {
@@ -39,19 +41,44 @@ public class PlanetIndicator : MonoBehaviour
 
     void Start()
     {
-        // 初始化行星和陨石目标
-        InitializeTargets("Ground", distanceTextPrefab, arrowPrefab, planetTargets);
+        // 获取指定 Layer 的整数值
+        int targetPlanetLayer = LayerMask.NameToLayer(targetPlanetLayerName);
+        if (targetPlanetLayer == -1)
+        {
+            Debug.LogError($"Layer '{targetPlanetLayerName}' does not exist! Please check your Layer configuration.");
+            return;
+        }
+
+        // 转换为 LayerMask
+        LayerMask targetPlanetLayerMask = 1 << targetPlanetLayer;
+
+        // 使用 LayerMask 初始化目标
+        InitializeLayerTargets(targetPlanetLayerMask, distanceTextPrefab, arrowPrefab, planetTargets);
         InitializeTargets("Meteorite", meteoriteDistanceTextPrefab, warningSignPrefab, meteoriteTargets);
     }
 
     void Update()
     {
-        // 更新目标的 UI
         UpdateTargets(planetTargets, isMeteorite: false);
         UpdateTargets(meteoriteTargets, isMeteorite: true);
 
-        // 检查是否有新的陨石生成
         CheckForNewMeteorites();
+    }
+
+    private void InitializeLayerTargets(LayerMask layerMask, RectTransform distancePrefab, RectTransform arrowPrefab, List<TargetData> targetList)
+    {
+        // 以摄像机为中心搜索 1000 单位范围内的对象
+        Collider[] colliders = UnityEngine.Physics.OverlapSphere(mainCamera.transform.position, 1000f, layerMask);
+        Debug.Log($"Found {colliders.Length} objects in LayerMask {layerMask.value}.");
+
+        foreach (Collider collider in colliders)
+        {
+            Debug.Log($"Found object: {collider.name}");
+            if (collider != null)
+            {
+                AddTarget(collider.transform, distancePrefab, arrowPrefab, targetList, false);
+            }
+        }
     }
 
     private void InitializeTargets(string tag, RectTransform distancePrefab, RectTransform arrowPrefab, List<TargetData> targetList)
@@ -91,11 +118,11 @@ public class PlanetIndicator : MonoBehaviour
 
     private void UpdateTargets(List<TargetData> targetList, bool isMeteorite)
     {
-        for (int i = targetList.Count - 1; i >= 0; i--) // 倒序遍历以安全移除元素
+        for (int i = targetList.Count - 1; i >= 0; i--)
         {
             var targetData = targetList[i];
 
-            if (targetData.targetTransform == null) // 如果目标已被销毁
+            if (targetData.targetTransform == null)
             {
                 RemoveTarget(targetData, targetList);
                 continue;
@@ -133,7 +160,6 @@ public class PlanetIndicator : MonoBehaviour
 
         if (isTargetVisible)
         {
-            // 显示距离文本，隐藏箭头或警告标志
             if (isMeteorite)
             {
                 targetData.warningSign?.gameObject.SetActive(false);
@@ -152,7 +178,6 @@ public class PlanetIndicator : MonoBehaviour
                 (viewportPoint.y - 0.5f) * canvasRect.sizeDelta.y
             );
 
-            // 应用偏移量
             canvasPosition += isMeteorite ? meteoriteOffset : planetOffset;
 
             targetData.distanceTextUI.anchoredPosition = canvasPosition;
@@ -160,7 +185,6 @@ public class PlanetIndicator : MonoBehaviour
         }
         else
         {
-            // 显示箭头或警告标志
             if (isMeteorite)
             {
                 targetData.distanceTextUI?.gameObject.SetActive(false);
@@ -170,7 +194,6 @@ public class PlanetIndicator : MonoBehaviour
                 Vector2 arrowPosition = CalculateOffScreenPosition(screenPoint, canvasRect);
                 targetData.warningSign.rectTransform.anchoredPosition = arrowPosition;
 
-                // 计算箭头旋转方向
                 Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
                 Vector2 direction = (new Vector2(screenPoint.x, screenPoint.y) - screenCenter).normalized;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90f;
@@ -185,7 +208,6 @@ public class PlanetIndicator : MonoBehaviour
                 Vector2 arrowPosition = CalculateOffScreenPosition(screenPoint, canvasRect);
                 targetData.arrowUI.anchoredPosition = arrowPosition;
 
-                // 计算箭头旋转方向
                 Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
                 Vector2 direction = (new Vector2(screenPoint.x, screenPoint.y) - screenCenter).normalized;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90f;
