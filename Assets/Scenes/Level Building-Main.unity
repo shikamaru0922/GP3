@@ -1880,6 +1880,8 @@ MonoBehaviour:
   meteoriteDistanceTextPrefab: {fileID: 5619491641547201631, guid: 2b4f6d8caca023f40a3a16eb87178942, type: 3}
   warningSignPrefab: {fileID: 7491820780068922856, guid: c7afdf5e6d64dc441990a53297a7147a, type: 3}
   edgePadding: 50
+  planetOffset: {x: 50, y: 0}
+  meteoriteOffset: {x: 0, y: 0}
 --- !u!4 &1750736818
 Transform:
   m_ObjectHideFlags: 0
@@ -2461,7 +2463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 650583474574734608, guid: a7956d274215fa24ba1cf5279e5070e0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 650583474574734610, guid: a7956d274215fa24ba1cf5279e5070e0, type: 3}
       propertyPath: m_Enabled
@@ -2631,7 +2633,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1152791595112375825, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
       propertyPath: field of view
-      value: 60
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 1544933351344355896, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
       propertyPath: m_Type
