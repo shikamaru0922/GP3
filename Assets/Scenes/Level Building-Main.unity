@@ -1185,6 +1185,7 @@ MonoBehaviour:
   walkingSound: {fileID: 0}
   landingSound: {fileID: 0}
   throwBombSound: {fileID: 0}
+  SceneName: 
 --- !u!23 &985046758
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2394,6 +2395,7 @@ MonoBehaviour:
   walkingSound: {fileID: 0}
   landingSound: {fileID: 0}
   throwBombSound: {fileID: 0}
+  SceneName: 
 --- !u!23 &2082989994
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2772,6 +2774,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 850839695216478476, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
+      propertyPath: SceneName
+      value: StartingMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 850839695216478476, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
       propertyPath: maxHealth
       value: 10

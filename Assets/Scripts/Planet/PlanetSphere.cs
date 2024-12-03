@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlanetSphere : MonoBehaviour
 {
     public float newGravityConstant = 0.2f; // 新的重力常数

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -66,6 +68,7 @@ public class PlayerController : MonoBehaviour
     // 管理音效播放状态的字典
     private Dictionary<AudioClip, bool> audioClipPlayingStatus = new Dictionary<AudioClip, bool>();
 
+    public String SceneName;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -387,6 +390,10 @@ public class PlayerController : MonoBehaviour
                 {
                     // 增加任务目标计数
                     taskTargetCount++;
+                    if (taskTargetCount >= 3)
+                    {
+                        SceneManager.LoadScene("Victory");
+                    }
 
                     // 添加到已交互的物品列表（可选）
                     interactedItems.Add(hit.collider.gameObject);
@@ -472,7 +479,6 @@ public class PlayerController : MonoBehaviour
 
     void ShowDeathUI()
     {
-        // 显示死亡的 UI 占位符
-        // 这里可以添加代码来显示您将来创建的死亡 UI
+        SceneManager.LoadScene(SceneName);
     }
 }
