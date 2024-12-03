@@ -133,11 +133,13 @@ public class PlanetSphere : MonoBehaviour
         SphereCollider sphereCollider = GetComponent<SphereCollider>();
         if (sphereCollider != null)
         {
+            Debug.Log("SphereCollider");
             // 考虑 GameObject 的缩放
             radius = sphereCollider.radius * Mathf.Max(transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
         else
         {
+            Debug.Log("No SphereCollider");
             // 如果没有 SphereCollider，使用 Renderer.bounds
             Renderer renderer = GetComponent<Renderer>();
             if (renderer != null)
@@ -151,7 +153,7 @@ public class PlanetSphere : MonoBehaviour
                 radius = 1f; // 默认值
             }
         }
-
+        Debug.Log("Radius: " + radius);
         return radius;
     }
 }

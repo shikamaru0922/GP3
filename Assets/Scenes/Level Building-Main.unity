@@ -949,6 +949,18 @@ PrefabInstance:
       value: Planet_Frozen_3 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4120388792257629150, guid: 7f6ff87721005ea499d1e89b0fbbf0ae, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4120388792257629150, guid: 7f6ff87721005ea499d1e89b0fbbf0ae, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4120388792257629150, guid: 7f6ff87721005ea499d1e89b0fbbf0ae, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4120388792257629150, guid: 7f6ff87721005ea499d1e89b0fbbf0ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15
       objectReference: {fileID: 0}
@@ -987,6 +999,18 @@ PrefabInstance:
     - target: {fileID: 4120388792257629150, guid: 7f6ff87721005ea499d1e89b0fbbf0ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091451428146570812, guid: 7f6ff87721005ea499d1e89b0fbbf0ae, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091451428146570812, guid: 7f6ff87721005ea499d1e89b0fbbf0ae, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091451428146570812, guid: 7f6ff87721005ea499d1e89b0fbbf0ae, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1217,10 +1241,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2399749334213612600, guid: d51bc4bec53f2ec408ecb27792a1f8ec, type: 3}
-      propertyPath: gravityRange
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 2399749334213612601, guid: d51bc4bec53f2ec408ecb27792a1f8ec, type: 3}
       propertyPath: m_Name
       value: Planet_Alien_2 (1)
@@ -1278,10 +1298,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2399749334213612600, guid: d51bc4bec53f2ec408ecb27792a1f8ec, type: 3}
-      propertyPath: gravityRange
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 2399749334213612601, guid: d51bc4bec53f2ec408ecb27792a1f8ec, type: 3}
       propertyPath: m_Name
       value: Planet_Alien_2
@@ -1299,10 +1315,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1702692883}
     m_Modifications:
-    - target: {fileID: 2125880480399614980, guid: b6907c2742373a644bff26e1aa442a6e, type: 3}
-      propertyPath: gravityRange
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 2125880480399614981, guid: b6907c2742373a644bff26e1aa442a6e, type: 3}
       propertyPath: m_Name
       value: Planet_Alien_3 Variant
@@ -1472,6 +1484,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1702692883}
     m_Modifications:
+    - target: {fileID: 1713000647778328065, guid: 06c3fc470387922448db0ca1ff75a01b, type: 3}
+      propertyPath: interactableItemPrefab
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2706259052367773216, guid: 06c3fc470387922448db0ca1ff75a01b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -38.8
@@ -1511,10 +1527,6 @@ PrefabInstance:
     - target: {fileID: 2706259052367773216, guid: 06c3fc470387922448db0ca1ff75a01b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2706259052367773228, guid: 06c3fc470387922448db0ca1ff75a01b, type: 3}
-      propertyPath: gravityRange
-      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2706259052367773229, guid: 06c3fc470387922448db0ca1ff75a01b, type: 3}
       propertyPath: m_Name
@@ -1621,10 +1633,6 @@ PrefabInstance:
     - target: {fileID: 402520202810457776, guid: 00048438eff07af45981e76561c167a8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 402520202810457788, guid: 00048438eff07af45981e76561c167a8, type: 3}
-      propertyPath: gravityRange
-      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 402520202810457789, guid: 00048438eff07af45981e76561c167a8, type: 3}
       propertyPath: m_Name
@@ -1880,6 +1888,8 @@ MonoBehaviour:
   meteoriteDistanceTextPrefab: {fileID: 5619491641547201631, guid: 2b4f6d8caca023f40a3a16eb87178942, type: 3}
   warningSignPrefab: {fileID: 7491820780068922856, guid: c7afdf5e6d64dc441990a53297a7147a, type: 3}
   edgePadding: 50
+  planetOffset: {x: 0, y: 50}
+  meteoriteOffset: {x: 0, y: 30}
 --- !u!4 &1750736818
 Transform:
   m_ObjectHideFlags: 0
@@ -3181,6 +3191,10 @@ PrefabInstance:
     - target: {fileID: 6355477854690031207, guid: 11bf23e1e7240404ba1a47b856ea6701, type: 3}
       propertyPath: m_TagString
       value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 6549459515135713601, guid: 11bf23e1e7240404ba1a47b856ea6701, type: 3}
+      propertyPath: interactableItemPrefab
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6932153745703804278, guid: 11bf23e1e7240404ba1a47b856ea6701, type: 3}
       propertyPath: m_Name

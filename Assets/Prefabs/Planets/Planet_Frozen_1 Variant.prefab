@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 414880587381544258, guid: 7dfb0419763751e448e43eaa3b07488d, type: 3}
+      propertyPath: gravityRange
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 414880587381544258, guid: 7dfb0419763751e448e43eaa3b07488d, type: 3}
       propertyPath: planetSphere
       value: 
       objectReference: {fileID: 444527534168181277}
@@ -17,16 +21,28 @@ PrefabInstance:
       value: Planet_Frozen_1 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 414880587381544270, guid: 7dfb0419763751e448e43eaa3b07488d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 414880587381544270, guid: 7dfb0419763751e448e43eaa3b07488d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 414880587381544270, guid: 7dfb0419763751e448e43eaa3b07488d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 414880587381544270, guid: 7dfb0419763751e448e43eaa3b07488d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 35.6
       objectReference: {fileID: 0}
     - target: {fileID: 414880587381544270, guid: 7dfb0419763751e448e43eaa3b07488d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 414880587381544270, guid: 7dfb0419763751e448e43eaa3b07488d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 61.2
+      value: -437
       objectReference: {fileID: 0}
     - target: {fileID: 414880587381544270, guid: 7dfb0419763751e448e43eaa3b07488d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -90,6 +106,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 402520202810457776}
     m_Modifications:
+    - target: {fileID: -4216859302048453862, guid: c45a4a3699678c84bae742da237acac1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: c45a4a3699678c84bae742da237acac1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: c45a4a3699678c84bae742da237acac1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c45a4a3699678c84bae742da237acac1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -194,6 +222,7 @@ MonoBehaviour:
   waitTime: 0.5
   planet: {fileID: 402520202810457788}
   playerController: {fileID: 0}
+  interactableItemPrefab: {fileID: 0}
 --- !u!64 &974354781695948330
 MeshCollider:
   m_ObjectHideFlags: 0
