@@ -123,6 +123,8 @@ MonoBehaviour:
   pullSpeed: 20
   maxSpeed: 40
   acceleration: 6
+  maxScale: 10
+  growthRate: 0.1
 --- !u!1 &6954705725017254731
 GameObject:
   m_ObjectHideFlags: 0
