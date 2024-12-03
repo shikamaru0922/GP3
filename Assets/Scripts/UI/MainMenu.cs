@@ -5,8 +5,8 @@ public class MainMenu : MonoBehaviour
 {
     public void StartGame()
     {
-        // È·±£ÓÎÏ·Ö÷³¡¾°µÄÃû³ÆÕýÈ·
-        string gameSceneName = "1"; // ÓÎÏ·Ö÷³¡¾°µÄÃû³Æ
+        // È·ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·
+        string gameSceneName = "opening"; // ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         SceneManager.LoadScene(gameSceneName);
     }
 }

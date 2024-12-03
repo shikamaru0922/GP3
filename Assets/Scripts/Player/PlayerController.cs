@@ -390,7 +390,6 @@ public class PlayerController : MonoBehaviour
 
                     // 添加到已交互的物品列表（可选）
                     interactedItems.Add(hit.collider.gameObject);
-
                     // 销毁可交互对象
                     Destroy(hit.collider.gameObject);
 

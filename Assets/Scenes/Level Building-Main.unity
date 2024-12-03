@@ -1331,9 +1331,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1702692883}
     m_Modifications:
+    - target: {fileID: 507858543117360042, guid: b6907c2742373a644bff26e1aa442a6e, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2125880480399614981, guid: b6907c2742373a644bff26e1aa442a6e, type: 3}
       propertyPath: m_Name
       value: Planet_Alien_3 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125880480399614981, guid: b6907c2742373a644bff26e1aa442a6e, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2125880480399614984, guid: b6907c2742373a644bff26e1aa442a6e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1918,10 +1926,10 @@ MonoBehaviour:
   meteoriteDistanceTextPrefab: {fileID: 5619491641547201631, guid: 2b4f6d8caca023f40a3a16eb87178942, type: 3}
   warningSignPrefab: {fileID: 7491820780068922856, guid: c7afdf5e6d64dc441990a53297a7147a, type: 3}
   edgePadding: 50
-planetOffset: {x: 0, y: 50}
-meteoriteOffset: {x: 0, y: 30}
+  planetOffset: {x: 0, y: 50}
+  meteoriteOffset: {x: 0, y: 30}
+  targetPlanetLayerName: TargetPlanet
 --- !u!4 &1750736818
-
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2709,7 +2717,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 850839695216478476, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
       propertyPath: maxHealth
-      value: 50
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 850839695216478476, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
       propertyPath: moveSpeed
@@ -2717,7 +2725,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 850839695216478476, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
       propertyPath: currentHealth
-      value: 50
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 850839695216478476, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
       propertyPath: maxspeed_inSpace
@@ -2729,7 +2737,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 850839695216478476, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
       propertyPath: landingSpeedThreshold
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1152791595112375825, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
       propertyPath: field of view
@@ -2742,6 +2750,10 @@ PrefabInstance:
     - target: {fileID: 1264022489660234043, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
       propertyPath: m_FillMethod
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325007534213137286, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 343
       objectReference: {fileID: 0}
     - target: {fileID: 1544933351344355896, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
       propertyPath: m_Type

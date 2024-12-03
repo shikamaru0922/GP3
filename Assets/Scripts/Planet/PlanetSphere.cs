@@ -15,7 +15,7 @@ public class PlanetSphere : MonoBehaviour
 
     private GameObject interactableItemInstance = null; // 生成的 InteractableItem 的引用
     private Coroutine deactivateItemCoroutine = null; // 使 InteractableItem 不激活的协程引用
-
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -80,6 +80,7 @@ public class PlanetSphere : MonoBehaviour
 
     void PlaceInteractableItem()
     {
+
         // 如果 InteractableItem 已经存在且激活，直接返回
         if (interactableItemInstance != null && interactableItemInstance.activeSelf)
         {
