@@ -2139,8 +2139,8 @@ MonoBehaviour:
   playerController: {fileID: 1750927379}
   damageOverlay: {fileID: 1660510772}
   speedDangerOverlay: {fileID: 1852105878470434151}
-  hurtColor: {r: 0.6132076, g: 0.10123709, b: 0.10123709, a: 0.48235294}
-  speedDangerColor: {r: 0.084905684, g: 0.076495215, b: 0.076495215, a: 0.48235294}
+  hurtColor: {r: 0.6132076, g: 0.10123709, b: 0.10123709, a: 0.6156863}
+  speedDangerColor: {r: 0.084905684, g: 0.076495215, b: 0.076495215, a: 0}
   flashDuration: 0.2
 --- !u!114 &1750927379 stripped
 MonoBehaviour:

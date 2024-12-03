@@ -26,7 +26,7 @@ public class PlanetSphere : MonoBehaviour
         {
             playerController = other.GetComponent<PlayerController>();
             playerController.animator.SetTrigger("LandingTrigger");
-
+            playerController.standtargetAngel = gameObject.transform.position;
             // Existing gravity change logic
             if (gravityChangeCoroutine != null)
             {
