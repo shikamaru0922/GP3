@@ -5,24 +5,27 @@ using UnityEngine.UI;
 
 public class PlanetIndicator : MonoBehaviour
 {
-    public Camera mainCamera;
-    public Canvas worldSpaceCanvas;
-    public RectTransform distanceTextPrefab;
-    public RectTransform arrowPrefab;
-    public RectTransform meteoriteDistanceTextPrefab;
-    public RectTransform warningSignPrefab;
-    public float edgePadding = 50f;
+    public Camera mainCamera; // 主摄像机
+    public Canvas worldSpaceCanvas; // 世界空间的 Canvas
+    public RectTransform distanceTextPrefab; // 距离文本预制件
+    public RectTransform arrowPrefab; // 箭头预制件
+    public RectTransform meteoriteDistanceTextPrefab; // 陨石距离文本预制件
+    public RectTransform warningSignPrefab; // 警告标志预制件
+    public float edgePadding = 50f; // 屏幕边缘的填充
+    public Vector2 planetOffset = new Vector2(0, 50); // 行星文本的偏移
+    public Vector2 meteoriteOffset = new Vector2(0, 30); // 陨石文本的偏移
 
-    private List<TargetData> planetTargets = new List<TargetData>();
-    private List<TargetData> meteoriteTargets = new List<TargetData>();
+    private List<TargetData> planetTargets = new List<TargetData>(); // 行星目标列表
+    private List<TargetData> meteoriteTargets = new List<TargetData>(); // 陨石目标列表
 
+    // 存储目标相关数据的类
     private class TargetData
     {
-        public Transform targetTransform;
-        public RectTransform distanceTextUI;
-        public RectTransform arrowUI;
-        public Text distanceTextComponent;
-        public Image warningSign;
+        public Transform targetTransform; // 目标位置
+        public RectTransform distanceTextUI; // 距离文本 UI
+        public RectTransform arrowUI; // 箭头 UI
+        public Text distanceTextComponent; // 文本组件
+        public Image warningSign; // 警告标志
 
         public TargetData(Transform target, RectTransform distanceText, RectTransform arrow, Text distanceTextComp, Image warningSignImage)
         {
@@ -36,14 +39,18 @@ public class PlanetIndicator : MonoBehaviour
 
     void Start()
     {
+        // 初始化行星和陨石目标
         InitializeTargets("Ground", distanceTextPrefab, arrowPrefab, planetTargets);
         InitializeTargets("Meteorite", meteoriteDistanceTextPrefab, warningSignPrefab, meteoriteTargets);
     }
 
     void Update()
     {
+        // 更新目标的 UI
         UpdateTargets(planetTargets, isMeteorite: false);
         UpdateTargets(meteoriteTargets, isMeteorite: true);
+
+        // 检查是否有新的陨石生成
         CheckForNewMeteorites();
     }
 
@@ -126,6 +133,7 @@ public class PlanetIndicator : MonoBehaviour
 
         if (isTargetVisible)
         {
+            // 显示距离文本，隐藏箭头或警告标志
             if (isMeteorite)
             {
                 targetData.warningSign?.gameObject.SetActive(false);
@@ -144,11 +152,15 @@ public class PlanetIndicator : MonoBehaviour
                 (viewportPoint.y - 0.5f) * canvasRect.sizeDelta.y
             );
 
+            // 应用偏移量
+            canvasPosition += isMeteorite ? meteoriteOffset : planetOffset;
+
             targetData.distanceTextUI.anchoredPosition = canvasPosition;
             targetData.distanceTextComponent.text = $"{distanceToTarget:F1}m";
         }
         else
         {
+            // 显示箭头或警告标志
             if (isMeteorite)
             {
                 targetData.distanceTextUI?.gameObject.SetActive(false);
@@ -157,6 +169,12 @@ public class PlanetIndicator : MonoBehaviour
                 RectTransform canvasRect = worldSpaceCanvas.GetComponent<RectTransform>();
                 Vector2 arrowPosition = CalculateOffScreenPosition(screenPoint, canvasRect);
                 targetData.warningSign.rectTransform.anchoredPosition = arrowPosition;
+
+                // 计算箭头旋转方向
+                Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
+                Vector2 direction = (new Vector2(screenPoint.x, screenPoint.y) - screenCenter).normalized;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90f;
+                targetData.warningSign.rectTransform.localRotation = Quaternion.Euler(0, 0, angle);
             }
             else
             {
@@ -166,6 +184,12 @@ public class PlanetIndicator : MonoBehaviour
                 RectTransform canvasRect = worldSpaceCanvas.GetComponent<RectTransform>();
                 Vector2 arrowPosition = CalculateOffScreenPosition(screenPoint, canvasRect);
                 targetData.arrowUI.anchoredPosition = arrowPosition;
+
+                // 计算箭头旋转方向
+                Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
+                Vector2 direction = (new Vector2(screenPoint.x, screenPoint.y) - screenCenter).normalized;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90f;
+                targetData.arrowUI.localRotation = Quaternion.Euler(0, 0, angle);
             }
         }
     }
