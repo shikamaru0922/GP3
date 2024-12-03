@@ -59,6 +59,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4646698548674564495, guid: d1338df9deaced440b67cfeaf4ccc830, type: 3}
+    - {fileID: 2930721833996719477, guid: d1338df9deaced440b67cfeaf4ccc830, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1201554621309632105, guid: d1338df9deaced440b67cfeaf4ccc830, type: 3}
       insertIndex: -1
@@ -132,6 +133,10 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: ad54985f2aa4175478d6eeab7f2fab43, type: 3}
       propertyPath: m_Name
       value: Desert_Design5
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: ad54985f2aa4175478d6eeab7f2fab43, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

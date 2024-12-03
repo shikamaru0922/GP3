@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Earth-Like_Design1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 9b91237d15a06a9448c67ce98440b8b7, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -206,6 +210,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1959814101912001089, guid: 42f2a85270ac80642aa4e67f24745311, type: 3}
+    - {fileID: 8274656968984498460, guid: 42f2a85270ac80642aa4e67f24745311, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5392419372020054528, guid: 42f2a85270ac80642aa4e67f24745311, type: 3}
       insertIndex: -1

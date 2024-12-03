@@ -9,6 +9,7 @@ TagManager:
   - FxTemporaire
   - Meteorite
   - BlackHole
+  - Gravity
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,6 @@ TagManager:
   - UI
   - Planet
   - Player
-
-  - 
   - 
   - 
   - 
@@ -47,7 +46,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: TimerUI
-    uniqueID: 1646055337
     locked: 0
