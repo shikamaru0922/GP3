@@ -13,6 +13,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4051540702803353874, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
+      propertyPath: gravityRange
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051540702803353874, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
       propertyPath: planetSphere
       value: 
       objectReference: {fileID: 3781790597170629607}
@@ -26,27 +30,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4051540702803353886, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4051540702803353886, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4051540702803353886, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4051540702803353886, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -86.03295
+      value: 70.98337
       objectReference: {fileID: 0}
     - target: {fileID: 4051540702803353886, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.1997452
+      value: 8.443249
       objectReference: {fileID: 0}
     - target: {fileID: 4051540702803353886, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.065697
+      value: -553
       objectReference: {fileID: 0}
     - target: {fileID: 4051540702803353886, guid: df84eb0baf008d348b2f15fd0a2f6f4d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -114,6 +118,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2399749334213612596}
     m_Modifications:
+    - target: {fileID: -4216859302048453862, guid: 1bc7c973d94657d4cae2166a4b140d63, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 1bc7c973d94657d4cae2166a4b140d63, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 1bc7c973d94657d4cae2166a4b140d63, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1bc7c973d94657d4cae2166a4b140d63, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -223,6 +239,7 @@ MonoBehaviour:
   waitTime: 0.5
   planet: {fileID: 2399749334213612600}
   playerController: {fileID: 0}
+  interactableItemPrefab: {fileID: 1658914894337653328, guid: fb4858e14ab35406f94f80bf1f70cb38, type: 3}
 --- !u!64 &9167925002071632243
 MeshCollider:
   m_ObjectHideFlags: 0
