@@ -2901,6 +2901,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 850839695216478476, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
+      propertyPath: interactionRange
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 850839695216478476, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
       propertyPath: maxspeed_inSpace
       value: 10
       objectReference: {fileID: 0}
