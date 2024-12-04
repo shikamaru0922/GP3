@@ -929,7 +929,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: BGMPlayer
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1410816367805234426, guid: 0f61b37bc5f4e4636a45727c82b0feb4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2879,6 +2880,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 647689049350001849, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 850839695216478476, guid: 771b88301f1d03f428eaf1bb5d61d104, type: 3}
       propertyPath: SceneName
       value: StartingMenu
@@ -3498,6 +3503,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1702692883}
     m_Modifications:
+    - target: {fileID: 2453257605791070370, guid: 11bf23e1e7240404ba1a47b856ea6701, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6355477854690031207, guid: 11bf23e1e7240404ba1a47b856ea6701, type: 3}
       propertyPath: m_TagString
       value: Ground
@@ -3505,6 +3514,10 @@ PrefabInstance:
     - target: {fileID: 6549459515135713601, guid: 11bf23e1e7240404ba1a47b856ea6701, type: 3}
       propertyPath: interactableItemPrefab
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6932153745703804276, guid: 11bf23e1e7240404ba1a47b856ea6701, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6932153745703804278, guid: 11bf23e1e7240404ba1a47b856ea6701, type: 3}
       propertyPath: m_Name

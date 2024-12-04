@@ -76,12 +76,12 @@ public class Meteorite : MonoBehaviour
     {
         if (other.CompareTag("Player") && !playerAttached)
         {
-            Debug.Log("Player attached to meteorite.");
+            //Debug.Log("Player attached to meteorite.");
             AttachPlayer(other.gameObject);
         }
         if (other.CompareTag("Gravity"))
         {
-            Debug.Log("Meteorite collided with grabity.");
+            //Debug.Log("Meteorite collided with grabity.");
             DestroyMeteorite();
         }
     }

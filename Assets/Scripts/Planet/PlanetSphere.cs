@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class PlanetSphere : MonoBehaviour
 {
     public float newGravityConstant = 0.2f; // 新的重力常数
@@ -13,13 +15,24 @@ public class PlanetSphere : MonoBehaviour
 
     public GameObject interactableItemPrefab; // InteractableItem 的预制件
 
-    private GameObject interactableItemInstance = null; // 生成的 InteractableItem 的引用
+    public GameObject interactableItemInstance = null; // 生成的 InteractableItem 的引用
     private Coroutine deactivateItemCoroutine = null; // 使 InteractableItem 不激活的协程引用
     
-    private bool hasGeneratedInteractableItem = false; // Flag to track item generation
+    public bool hasGeneratedInteractableItem = false; // Flag to track item generation
 
-    
-    
+    private void Update()
+    {
+        // 如果标志为 true 且未能生成实例（interactableItemInstance为null），则修改当前物体和父物体的Layer为Default
+        if (hasGeneratedInteractableItem && interactableItemInstance == null)
+        {
+            gameObject.layer = LayerMask.NameToLayer("Default");
+            if (transform.parent != null)
+            {
+                transform.parent.gameObject.layer = LayerMask.NameToLayer("Default");
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -70,7 +83,7 @@ public class PlanetSphere : MonoBehaviour
         yield return new WaitForSeconds(waitTime); // 等待指定时间
         planet.currentGravityConstant = newGravityConstant; // 更改重力常数
         Debug.Log("Gravity constant changed after delay");
-
+        
         // 放置 InteractableItem
         PlaceInteractableItem();
     }
@@ -93,15 +106,18 @@ public class PlanetSphere : MonoBehaviour
         Vector3 placementDirection = transform.forward; // Adjust as needed
         placementDirection.Normalize();
         Vector3 itemPosition = transform.position + placementDirection * radius;
-        Quaternion itemRotation = Quaternion.Euler(90f, 0f, 0f);
+        Quaternion itemRotation = Quaternion.identity; // 可以根据需要微调旋转
 
         // Instantiate the InteractableItem
-        interactableItemInstance = Instantiate(interactableItemPrefab, itemPosition, itemRotation);
+        if (interactableItemPrefab != null)
+        {
+            interactableItemInstance = Instantiate(interactableItemPrefab, itemPosition, itemRotation);
+        }
 
-        // Set the flag to true since we've now generated the item
+        // 设置标志位为 true，表示已经生成
         hasGeneratedInteractableItem = true;
 
-        Debug.Log("InteractableItem generated for the first time");
+       
     }
 
     private IEnumerator DeactivateItemAfterDelay(float delay)
@@ -125,13 +141,11 @@ public class PlanetSphere : MonoBehaviour
         SphereCollider sphereCollider = GetComponent<SphereCollider>();
         if (sphereCollider != null)
         {
-            Debug.Log("SphereCollider");
             // 考虑 GameObject 的缩放
             radius = sphereCollider.radius * Mathf.Max(transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
         else
         {
-            Debug.Log("No SphereCollider");
             // 如果没有 SphereCollider，使用 Renderer.bounds
             Renderer renderer = GetComponent<Renderer>();
             if (renderer != null)
@@ -141,7 +155,6 @@ public class PlanetSphere : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("无法获取 GameObject 的尺寸，使用默认半径");
                 radius = 1f; // 默认值
             }
         }

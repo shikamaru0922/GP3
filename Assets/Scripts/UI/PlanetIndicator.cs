@@ -6,20 +6,20 @@ using static DG.Tweening.DOTweenModuleUtils;
 
 public class PlanetIndicator : MonoBehaviour
 {
-    public Camera mainCamera; // Ö÷ÉãÏñ»ú
-    public Canvas worldSpaceCanvas; // ÊÀ½ç¿Õ¼äµÄ Canvas
-    public RectTransform distanceTextPrefab; // ¾àÀëÎÄ±¾Ô¤ÖÆ¼þ
-    public RectTransform arrowPrefab; // ¼ýÍ·Ô¤ÖÆ¼þ
-    public RectTransform meteoriteDistanceTextPrefab; // ÔÉÊ¯¾àÀëÎÄ±¾Ô¤ÖÆ¼þ
-    public RectTransform warningSignPrefab; // ¾¯¸æ±êÖ¾Ô¤ÖÆ¼þ
-    public float edgePadding = 50f; // ÆÁÄ»±ßÔµµÄÌî³ä
-    public Vector2 planetOffset = new Vector2(0, 50); // ÐÐÐÇÎÄ±¾µÄÆ«ÒÆ
-    public Vector2 meteoriteOffset = new Vector2(0, 30); // ÔÉÊ¯ÎÄ±¾µÄÆ«ÒÆ
+    public Camera mainCamera; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public Canvas worldSpaceCanvas; // ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ Canvas
+    public RectTransform distanceTextPrefab; // ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½Ô¤ï¿½Æ¼ï¿½
+    public RectTransform arrowPrefab; // ï¿½ï¿½Í·Ô¤ï¿½Æ¼ï¿½
+    public RectTransform meteoriteDistanceTextPrefab; // ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½Ô¤ï¿½Æ¼ï¿½
+    public RectTransform warningSignPrefab; // ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾Ô¤ï¿½Æ¼ï¿½
+    public float edgePadding = 50f; // ï¿½ï¿½Ä»ï¿½ï¿½Ôµï¿½ï¿½ï¿½ï¿½ï¿½
+    public Vector2 planetOffset = new Vector2(0, 50); // ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Æ«ï¿½ï¿½
+    public Vector2 meteoriteOffset = new Vector2(0, 30); // ï¿½ï¿½Ê¯ï¿½Ä±ï¿½ï¿½ï¿½Æ«ï¿½ï¿½
 
-    public string targetPlanetLayerName = "TargetPlanet"; // Ä¿±êÐÐÐÇµÄ Layer Ãû³Æ
+    public string targetPlanetLayerName = "TargetPlanet"; // Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ Layer ï¿½ï¿½ï¿½ï¿½
 
-    private List<TargetData> planetTargets = new List<TargetData>(); // ÐÐÐÇÄ¿±êÁÐ±í
-    private List<TargetData> meteoriteTargets = new List<TargetData>(); // ÔÉÊ¯Ä¿±êÁÐ±í
+    private List<TargetData> planetTargets = new List<TargetData>(); // ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Ð±ï¿½
+    private List<TargetData> meteoriteTargets = new List<TargetData>(); // ï¿½ï¿½Ê¯Ä¿ï¿½ï¿½ï¿½Ð±ï¿½
 
     private class TargetData
     {
@@ -41,7 +41,7 @@ public class PlanetIndicator : MonoBehaviour
 
     void Start()
     {
-        // »ñÈ¡Ö¸¶¨ Layer µÄÕûÊýÖµ
+        // ï¿½ï¿½È¡Ö¸ï¿½ï¿½ Layer ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
         int targetPlanetLayer = LayerMask.NameToLayer(targetPlanetLayerName);
         if (targetPlanetLayer == -1)
         {
@@ -49,10 +49,10 @@ public class PlanetIndicator : MonoBehaviour
             return;
         }
 
-        // ×ª»»Îª LayerMask
+        // ×ªï¿½ï¿½Îª LayerMask
         LayerMask targetPlanetLayerMask = 1 << targetPlanetLayer;
 
-        // Ê¹ÓÃ LayerMask ³õÊ¼»¯Ä¿±ê
+        // Ê¹ï¿½ï¿½ LayerMask ï¿½ï¿½Ê¼ï¿½ï¿½Ä¿ï¿½ï¿½
         InitializeLayerTargets(targetPlanetLayerMask, distanceTextPrefab, arrowPrefab, planetTargets);
         InitializeTargets("Meteorite", meteoriteDistanceTextPrefab, warningSignPrefab, meteoriteTargets);
     }
@@ -67,7 +67,7 @@ public class PlanetIndicator : MonoBehaviour
 
     private void InitializeLayerTargets(LayerMask layerMask, RectTransform distancePrefab, RectTransform arrowPrefab, List<TargetData> targetList)
     {
-        // ÒÔÉãÏñ»úÎªÖÐÐÄËÑË÷ 1000 µ¥Î»·¶Î§ÄÚµÄ¶ÔÏó
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1000 ï¿½ï¿½Î»ï¿½ï¿½Î§ï¿½ÚµÄ¶ï¿½ï¿½ï¿½
         Collider[] colliders = UnityEngine.Physics.OverlapSphere(mainCamera.transform.position, 1000f, layerMask);
         Debug.Log($"Found {colliders.Length} objects in LayerMask {layerMask.value}.");
 

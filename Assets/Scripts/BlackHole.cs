@@ -124,9 +124,7 @@ public class BlackHole : MonoBehaviour
         // 实现游戏结束的逻辑
         // 例如，调用 GameManager 中的 GameOver() 方法
 
-        // 暂停游戏时间
-        Time.timeScale = 0f;
-
+        // 暂停
         // 显示游戏结束的 UI
         //GameManager gameManager = FindObjectOfType<GameManager>();
         /*if (gameManager != null)

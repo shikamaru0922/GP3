@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
         HandleBombDetonate();
         HandleResetPosition();
         HandleInteraction();
-
+        AnimateAngle();
         // 处理炸弹冷却计时器
         if (isBombCooldown)
         {
@@ -131,9 +131,14 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         MovePlayer();
-        AnimateAngle();
+        //AnimateAngle();
         MaxSpeedCheck();
         UpdateAnimatorStates();
+    }
+
+    private void LateUpdate()
+    {
+       
     }
 
     public void AnimateAngle()
@@ -365,7 +370,14 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
+        {
             isGrounded = true;
+            
+        }
+
+        
+
+        
     }
 
     private void OnCollisionExit(Collision collision)
@@ -430,11 +442,11 @@ public class PlayerController : MonoBehaviour
             if (!landingAudioSource.isPlaying)
             {
                 landingAudioSource.Play();
-                Debug.Log("播放落地音效");
+                //Debug.Log("播放落地音效");
             }
             else
             {
-                Debug.Log("落地音效正在播放，跳过播放");
+                //Debug.Log("落地音效正在播放，跳过播放");
             }
         }
     }
